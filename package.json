@@ -1,67 +1,67 @@
 {
-  "name": "codetown",
-  "version": "0.0.26",
-  "description": "codetown is a place to code and have fun",
-  "license": "MIT",
-  "repository": "wonglok/codetown",
-  "author": {
-    "name": "lok wong",
-    "url": "https://wonglok.com"
-  },
-  "type": "module",
-  "bin": {
-    "codetown": "src/server/cli.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "deploy": "npm run build; npm publish --access public",
-    "start": "vite build; NODE_ENV=production tsx ./src/server/cli.js",
-    "build": "NODE_ENV=production vite build; npx bump; ",
-    "dev": "NODE_ENV=development nodemon --watch ./index.html --watch ./src --watch ./public -x tsx ./src/server/cli.js",
-    "test": "node ./src/server/cli.js"
-  },
-  "files": [
-    "src/server",
-    "dist"
-  ],
-  "keywords": [
-    "cli",
-    "codetown"
-  ],
-  "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/three": "^0.182.0",
-    "ai": "^5.0.104",
-    "bvhecctrl": "^0.0.18",
-    "copy-to-clipboard": "^3.3.3",
-    "express": "^5.1.0",
-    "md5": "^2.3.0",
-    "meow": "^13.2.0",
-    "navcat": "^0.1.6",
-    "open": "^11.0.0",
-    "publish": "^0.6.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "socket.io": "^4.8.3",
-    "socket.io-client": "^4.8.3",
-    "tailwindcss": "^4.1.18",
-    "three": "^0.182.0",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.3",
-    "vite-express": "*",
-    "zustand": "^5.0.11",
-    "vite": "^6.3.3",
-    "nodemon": "^3.1.10"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.15.2",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1"
-  }
+	"name": "codetown",
+	"version": "0.0.26",
+	"description": "codetown is a place to code and have fun",
+	"license": "MIT",
+	"repository": "wonglok/codetown",
+	"author": {
+		"name": "lok wong",
+		"url": "https://wonglok.com"
+	},
+	"type": "module",
+	"bin": {
+		"codetown": "src/server/cli.js"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"deploy": "npm run build; npm publish --access public",
+		"start": "vite build; NODE_ENV=production tsx ./src/server/cli.js",
+		"build": "NODE_ENV=production vite build; npx bump; ",
+		"dev": "NODE_ENV=development nodemon --watch ./index.html --watch ./src --watch ./public -x tsx ./src/server/cli.js",
+		"test": "node ./src/server/cli.js"
+	},
+	"files": [
+		"src/server",
+		"dist"
+	],
+	"keywords": [
+		"cli",
+		"codetown"
+	],
+	"dependencies": {
+		"@react-three/drei": "^10.7.7",
+		"@react-three/fiber": "^9.5.0",
+		"@tailwindcss/vite": "^4.1.18",
+		"@types/three": "^0.182.0",
+		"ai": "^5.0.104",
+		"bvhecctrl": "^0.0.18",
+		"copy-to-clipboard": "^3.3.3",
+		"express": "^5.1.0",
+		"md5": "^2.3.0",
+		"meow": "^13.2.0",
+		"navcat": "^0.1.6",
+		"open": "^11.0.0",
+		"publish": "^0.6.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"socket.io": "^4.8.3",
+		"socket.io-client": "^4.8.3",
+		"tailwindcss": "^4.1.18",
+		"three": "^0.182.0",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3",
+		"vite-express": "*",
+		"zustand": "^5.0.11",
+		"vite": "^6.3.3",
+		"nodemon": "^3.1.10"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.1",
+		"@types/node": "^22.15.2",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"@vitejs/plugin-react": "^4.4.1"
+	}
 }

@@ -8,32 +8,17 @@ import { join } from "path";
 export async function runServer({
 	host,
 	port,
-	currentFolder,
-	currentFile,
 	mode,
 }: {
 	//
 	host: string;
 	port: number;
 	mode: "production" | "development";
-	currentFile: string;
-	currentFolder: string;
 }) {
-	//
-	if (process.env.NODE_ENV === "development") {
-		console.log("currentFolder", currentFolder);
-		console.log("currentFile", currentFile);
-	}
-
-	ViteExpress.config({
-		mode: mode || "production",
-	});
-
 	const app = express();
-
-	app.use(express.static(join(process.cwd(), "./dist")));
-
 	const server = createServer(app);
+
+	app.use(express.static(join(__dirname, "../../dist")));
 
 	const io = new Server(server); // Attach Socket.IO to the HTTP server
 
@@ -58,6 +43,9 @@ export async function runServer({
 
 	server.listen(port, host, () => {});
 
+	ViteExpress.config({
+		mode: mode || "production",
+	});
 	ViteExpress.bind(app, server, () => {
 		open(`http://${host}:${port}`);
 	});

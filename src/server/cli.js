@@ -29,8 +29,6 @@ Examples
 	},
 );
 
-const currentFile = import.meta.url;
-const currentFolder = dirname(currentFile);
 
 // @ts-ignore
 import('./main.ts').then(({ runServer }) => {
@@ -38,8 +36,6 @@ import('./main.ts').then(({ runServer }) => {
 		port: cli.flags.port || 8077,
 		host: `${cli.flags.host || '127.0.0.1'}`,
 		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
-		currentFile,
-		currentFolder
 	});
 })
 
