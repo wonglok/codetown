@@ -22,8 +22,12 @@ Examples
 		importMeta: import.meta,
 		flags: {
 			port: {
-				type: "number",
-				default: 8077,
+				type: "string",
+				default: "8077",
+			},
+			host: {
+				type: "string",
+				default: "127.0.0.1",
 			},
 		},
 	},
@@ -33,7 +37,8 @@ Examples
 // @ts-ignore
 import('./main.ts').then(({ runServer }) => {
 	runServer({
-		port: cli.flags.port || 8077,
+		dist: import.meta.resolve("../../dist/"),
+		port: `${cli.flags.port || 8077}`,
 		host: `${cli.flags.host || '127.0.0.1'}`,
 		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
 	});
