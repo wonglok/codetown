@@ -93,7 +93,7 @@ export function DiamindComponent({}) {
 				{ type: "number", name: "mFresnelPower", min: 0, max: 2 },
 				//
 				{ type: "number", name: "aberration", min: 0, max: 0.5 },
-				{ type: "number", name: "refraction", min: 0, max: 3.5 },
+				{ type: "number", name: "refraction", min: 0, max: 5 },
 				//
 				{ type: "number", name: "normalOffset", min: 0, max: 5 },
 				{ type: "number", name: "squashFactor", min: 0, max: 2 },

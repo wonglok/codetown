@@ -102,11 +102,11 @@ export function BloomPipeline({
 
 		//
 		object.sunLight.shadow.intensity = 1.0;
-		object.sunLight.intensity = 5.0;
+		object.sunLight.intensity = 1.0;
 		object.moonLight.shadow.intensity = 1.0;
-		object.moonLight.intensity = 5.0;
+		object.moonLight.intensity = 1.0;
 
-		scene.environmentIntensity = 0.35;
+		scene.environmentIntensity = 0.5;
 
 		const scenePass = pass(scene, camera);
 		scenePass.setMRT(
@@ -168,7 +168,7 @@ export function BloomPipeline({
 		// 	camera,
 		// );
 
-		const bloomPass = bloom(scenePassColor, 0.5, 1.0, 0.5);
+		const bloomPass = bloom(scenePassColor, 0.25, 2.0, 0.25);
 
 		const postProcessing = new PostProcessing(renderer as any);
 

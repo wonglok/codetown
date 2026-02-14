@@ -4,7 +4,7 @@
 
 // import { Joystick, VirtualButton } from 'bvhecctrl'
 
-import { Suspense } from "react";
+import { Suspense, useRef, type ReactNode } from "react";
 import { CanvasGPU } from "../CanvasGPU/CanvasGPU";
 import { Bvh, Center, Environment, Gltf } from "@react-three/drei";
 import { EnvLoader } from "../CanvasGPU/EnvLoader";
@@ -14,7 +14,9 @@ import { useAppState } from "./useAppState";
 import { AnimatedLobster } from "../SkinnedMesh/AnimatedLobster";
 import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
 import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
-import { BloomPipeline } from "../CanvasGPU/BloomLoader";
+import { BloomPipeline } from "../CanvasGPU/BloomPipeline";
+import { useFrame } from "@react-three/fiber";
+import { Group } from "three";
 // import { SkinedMeshEffect } from '../../SkinnedMesh/SkinedMeshEffect'
 // import { SkinedMeshAnimatedGLB } from '../../SkinnedMesh/SkinedMeshAnimatedGLB'
 // import { AnimatedLobster } from "../../SkinnedMesh/AnimatedLobster";
@@ -131,7 +133,11 @@ export function GamePage() {
 							</Suspense> */}
 
 							<Suspense fallback={null}>
-								<DiamindComponent></DiamindComponent>
+								<group>
+									{/* <LookAt> */}
+									<DiamindComponent></DiamindComponent>
+									{/* </LookAt> */}
+								</group>
 							</Suspense>
 
 							{/* <SkinedMeshEffect masterName="main-player"></SkinedMeshEffect> */}
@@ -145,4 +151,13 @@ export function GamePage() {
 	);
 }
 
+function LookAt({ children }: { children: ReactNode }) {
+	const ref = useRef<Group>(null);
+
+	useFrame((st) => {
+		ref.current?.lookAt(st.camera.position);
+	});
+
+	return <group ref={ref}>{children}</group>;
+}
 //

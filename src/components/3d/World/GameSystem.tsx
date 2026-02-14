@@ -306,7 +306,7 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 		val.setValues({
 			color: new Color("#000"),
 			emissive: new Color("#ff923f"),
-			emissiveIntensity: 15.0,
+			emissiveIntensity: 5.0,
 			metalness: 0,
 		});
 		return val;

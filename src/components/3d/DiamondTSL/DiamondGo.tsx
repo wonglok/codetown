@@ -103,7 +103,7 @@ export function getDiamondSystem({
 		boost: uniform(color(0.892, 0.892, 0.98595025)),
 
 		// Sphere approximation parameters
-		radius: uniform(0.029),
+		radius: uniform(0.05),
 		centreOffset: uniform(new Vector3(0, 0, 0)),
 	};
 
