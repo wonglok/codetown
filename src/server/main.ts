@@ -2,8 +2,9 @@ import express from "express";
 import ViteExpress from "vite-express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import open from "open";
 
-export function runServer({
+export async function runServer({
 	host,
 	port,
 	currentFolder,
@@ -50,11 +51,11 @@ export function runServer({
 		});
 	});
 
-	//
-
 	console.log(`Server is: http://${host}:${port}`);
 
 	server.listen(port, host, () => {});
 
-	ViteExpress.bind(app, server);
+	ViteExpress.bind(app, server, () => {
+		open(`http://${host}:${port}`);
+	});
 }
