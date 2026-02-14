@@ -168,7 +168,7 @@ export function BloomPipeline({
 		// 	camera,
 		// );
 
-		const bloomPass = bloom(scenePassColor, 0.25, 2.0, 0.25);
+		const bloomPass = bloom(scenePassColor, 0.1, 1.0, 0.95);
 
 		const postProcessing = new PostProcessing(renderer as any);
 
@@ -200,7 +200,7 @@ export function BloomPipeline({
 
 		return () => {
 			postProcessing.dispose();
-			dirL.removeFromParent();
+			object.clear();
 		};
 	}, [url, scene, env]);
 
