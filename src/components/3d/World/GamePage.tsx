@@ -31,7 +31,6 @@ export function GamePage() {
 			<CanvasGPU webgpu>
 				<Suspense fallback={null}>
 					<Bvh firstHitOnly>
-						<BloomPipeline url={`/hdr/default.hdr`}></BloomPipeline>
 						{/* <EnvLoader
 							//
 							url={`/hdr/default.hdr`}
@@ -41,16 +40,20 @@ export function GamePage() {
 							files={[`/hdr/default.hdr`]}
 						></Environment> */}
 
-						<group position={[0, -1.999, 0]}>
-							<Suspense fallback={null}>
-								<Gltf
-									castShadow
-									src={`/avatar/lobsters/others/lobsterland-transformed.glb`}
-								></Gltf>
-							</Suspense>
-						</group>
-
 						<group visible={visible}>
+							<BloomPipeline
+								url={`/hdr/default.hdr`}
+							></BloomPipeline>
+
+							<group position={[0, -1.999, 0]}>
+								<Suspense fallback={null}>
+									<Gltf
+										castShadow
+										src={`/avatar/lobsters/others/lobsterland-transformed.glb`}
+									></Gltf>
+								</Suspense>
+							</group>
+
 							{/*  */}
 
 							{/* <SkinedMeshAnimatedGLB
