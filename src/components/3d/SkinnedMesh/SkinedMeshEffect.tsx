@@ -3,6 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimationMixer, Clock, Mesh, Object3D, Sprite, Vector3 } from "three";
 import {
+	Discard,
 	float,
 	Fn,
 	hash,
@@ -14,8 +15,9 @@ import {
 	uniform,
 	uv,
 	vec3,
+	vec4,
 } from "three/tsl";
-import { WebGPURenderer } from "three/webgpu";
+import { MeshBasicNodeMaterial, WebGPURenderer } from "three/webgpu";
 import {
 	DRACOLoader,
 	FBXLoader,
@@ -101,6 +103,8 @@ export function SkinedMeshEffect({ masterName = "pet01" }) {
 				// .loadAsync(`/exp/avatar/Rooster_Animatdions.glb`)
 				//
 				.then(async (glb) => {
+					//
+
 					glb.scene.traverse((it: any) => {
 						if (it.isSkinnedMesh) {
 							setupSkinMesh({
@@ -121,6 +125,7 @@ export function SkinedMeshEffect({ masterName = "pet01" }) {
 								it.material.depthWrite = false;
 								it.material.depthTest = false;
 								it.material.opacity = 0;
+								it.material.visible = true;
 								it.material.wireframe = true;
 							}
 						}

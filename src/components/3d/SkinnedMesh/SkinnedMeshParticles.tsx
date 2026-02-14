@@ -410,8 +410,8 @@ export let setupSkinMesh = async ({
 
 	const mesh = new THREE.Mesh(instGeometry, material);
 	mesh.frustumCulled = false;
-	mesh.castShadow = true;
-	mesh.receiveShadow = true;
+	mesh.castShadow = false;
+	mesh.receiveShadow = false;
 
 	mounter.add(mesh);
 

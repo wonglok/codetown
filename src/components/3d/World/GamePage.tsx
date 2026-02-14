@@ -116,15 +116,6 @@ export function GamePage() {
 								</Suspense>
 							</group>
 
-							{/*  */}
-
-							{/* <group name='near-' position={[5.540832661423739, -1.9999580383300781, -13.618021457390823]}>
-                <Suspense fallback={null}>
-                  <Center scale={2} top>
-                    <Gltf src={`/avatar/lobsters/others/desk.glb`}></Gltf>
-                  </Center>
-                </Suspense>
-              </group> */}
 							<Suspense fallback={null}>
 								<GameSystem
 									glbSRC={`/env/digital-palace-loklok.glb`}

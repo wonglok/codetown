@@ -44,7 +44,7 @@ export function DiamindComponent({}) {
 		const material = systemForDiamond.createDiamondMaterial();
 
 		const mesh = new Mesh(obj.geometry, material);
-
+		mesh.castShadow = true;
 		mesh.scale.setScalar(50);
 
 		const capture = ({ scene }: any) => {
