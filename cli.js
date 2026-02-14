@@ -1,16 +1,7 @@
 #!/usr/bin/env node
 
-// import 'tsx'
+import 'tsx'
 import meow from "meow";
-import express from "express";
-import ViteExpress from "vite-express";
-import { createServer } from "http";
-import { Server } from "socket.io";
-
-
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
 
 const cli = meow(`
 Usage
@@ -40,56 +31,17 @@ Examples
 	},
 );
 
-async function runServer({
-	host,
-	port,
-	mode
-}) {
-	const app = express();
-	const server = createServer(app);
 
-	const io = new Server(server); // Attach Socket.IO to the HTTP server
-
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = dirname(__filename);
-
-	app.use('/', express.static(join(__dirname, 'public'))); // 'public' is folder name
-	app.use('/', express.static(join(__dirname, 'dist'))); // 'public' is folder name
-
-	app.get("/hello", (_, res) => {
-		res.send("Hello Vite + React + TypeScript!");
+import('./src/backend/core/runServer').then(({ runServer }) => {
+	runServer({
+		port: `${cli.flags.port || 8077}`,
+		host: `${cli.flags.host || 'localhost'}`,
+		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
 	});
+})
 
-	io.on("connection", (socket) => {
-		console.log("a web client connected", socket.id);
+//
 
-		socket.on("greet", (arg) => {
-			console.log(arg);
-		});
-		socket.emit("greet", { hello: socket.id });
-
-		socket.on("disconnect", (reason) => {
-			console.log(`Socket disconnected: ${reason}`);
-		});
-
-		//
-	});
-
-	console.log(`=============\nServer is online at: http://${host}:${port}\n=============`);
-
-	server.listen(port, host, () => { });
-
-	if (mode === 'development') {
-		ViteExpress.bind(app, server, () => {
-		});
-	}
-}
-
-runServer({
-	port: `${cli.flags.port || 8077}`,
-	host: `${cli.flags.host || 'localhost'}`,
-	mode: process.env.NODE_ENV === 'development' ? "development" : "production",
-});
-
+//
 
 //

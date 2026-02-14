@@ -24,6 +24,7 @@
 	},
 	"files": [
 		"dist",
+		"./src/backend",
 		"./cli.js"
 	],
 	"keywords": [
