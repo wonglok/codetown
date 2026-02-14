@@ -38,7 +38,7 @@ export function runServer({
 	});
 
 	io.on("connection", (socket) => {
-		console.log("a web client connected", socket);
+		console.log("a web client connected", socket.id);
 
 		socket.on("greet", (arg) => {
 			console.log(arg);

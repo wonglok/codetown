@@ -22,7 +22,7 @@
 		"deploy": "vite build; npx bump; npm run share:world",
 		"start": "vite build; NODE_ENV=production tsx ./src/server/cli.js",
 		"build": "vite build",
-		"dev": "NODE_ENV=development nodemon -w ./src -w ./public -x tsx ./src/server/cli.js",
+		"dev": "NODE_ENV=development nodemon --watch ./index.html --watch ./src --watch ./public -x tsx ./src/server/cli.js",
 		"test": "node ./src/server/cli.js"
 	},
 	"files": [
