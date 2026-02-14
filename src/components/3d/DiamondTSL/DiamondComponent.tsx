@@ -45,7 +45,7 @@ export function DiamindComponent({}) {
 
 		const mesh = new Mesh(obj.geometry, material);
 		mesh.castShadow = true;
-		mesh.scale.setScalar(50);
+		mesh.scale.setScalar(75);
 
 		const capture = ({ scene }: any) => {
 			//
