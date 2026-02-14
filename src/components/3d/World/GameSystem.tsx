@@ -118,7 +118,8 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 			}
 
 			if (ecctrlRef.current.group) {
-				ecctrlRef.current.group.visible = camControlRef.current.distance > 0.8;
+				ecctrlRef.current.group.visible =
+					camControlRef.current.distance > 0.8;
 			}
 		}
 	});
@@ -147,11 +148,19 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 							>
 								{/*  */}
 
-								<AvatarRPM></AvatarRPM>
+								{/* <AvatarRPM></AvatarRPM> */}
 
-								{/* <AvatarAI></AvatarAI> */}
+								{/*  */}
 
-								{/* {chosenLobster === "guy" && (
+								{chosenLobster === "army" && (
+									<>
+										<group position={[0, 0, 0]}>
+											<AvatarAI></AvatarAI>
+										</group>
+									</>
+								)}
+
+								{chosenLobster === "guy" && (
 									<>
 										<group position={[0, 0.15, 0]}>
 											<AvatarLobsterAI
@@ -171,7 +180,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 											></AvatarLobsterAI>
 										</group>
 									</>
-								)} */}
+								)}
 
 								<group name="main-player"></group>
 							</BVHEcctrl>
@@ -186,7 +195,8 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 								? {
 										onClick: (ev) => {
 											//
-											const pt = ev.intersections[0]?.point.toArray();
+											const pt =
+												ev.intersections[0]?.point.toArray();
 											console.log("obj", pt);
 											//
 											copy(

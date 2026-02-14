@@ -167,7 +167,12 @@ export let setupSkinMesh = async ({
 		for (let i = 0; i < particleCount; i++) {
 			let yo = i % localCount;
 
-			lifeBuffer.attr.setXYZ(i, Math.random(), Math.random(), Math.random());
+			lifeBuffer.attr.setXYZ(
+				i,
+				Math.random(),
+				Math.random(),
+				Math.random(),
+			);
 			lifeBuffer.attr.needsUpdate = true;
 		}
 	}
@@ -250,7 +255,8 @@ export let setupSkinMesh = async ({
 		// const color = colorBuffer.node.element(instanceIndex);
 		const position = positionBuffer.node.element(instanceIndex);
 		const velocity = velocityBuffer.node.element(instanceIndex);
-		const skinPosition = processedPositionBuffer.node.element(instanceIndex);
+		const skinPosition =
+			processedPositionBuffer.node.element(instanceIndex);
 		// const skinNormal = processedNormalBuffer.node.element(instanceIndex);
 
 		// const dist = mouseUni.sub(position).length().mul(1)
@@ -286,8 +292,8 @@ export let setupSkinMesh = async ({
 	const posAttr = positionBuffer.node.toAttribute();
 
 	const finalColor = mix(
-		color("#ffffff"),
-		color("#9d9d9d"),
+		color("#a2ff00"),
+		color("#07c5ff"),
 		velAttr.xz.length().mul(10),
 	);
 
@@ -297,7 +303,7 @@ export let setupSkinMesh = async ({
 	// const example = new THREE.ConeGeometry(1, 1, 3, 1, false)
 
 	const example: any = new THREE.ConeGeometry(1, 1, 3);
-	example.scale(1.5, 1.5, 1.5);
+	example.scale(5, 5, 5);
 
 	// const example: any = new THREE.SphereGeometry(1, 5, 5);
 

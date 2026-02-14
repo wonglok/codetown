@@ -68,8 +68,8 @@ export function SkinedMeshEffect({ masterName = "pet01" }) {
 
 			api.glb.scene.rotation.y += Math.PI * 0.0;
 
-			api.glb.scene.scale.setScalar(1 / 50);
-			api.glb.scene.position.y += 0.5;
+			api.glb.scene.scale.setScalar((1 / 50) * 10);
+			// api.glb.scene.position.y += 5;
 
 			// api.
 		}

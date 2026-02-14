@@ -53,7 +53,8 @@ export function GamePage() {
 								name="near-water-r"
 								scale={5}
 								position={[
-									4.046127052562055, -1.6848011016845703, -31.98570839489203,
+									4.046127052562055, -1.6848011016845703,
+									-31.98570839489203,
 								]}
 							>
 								<Suspense fallback={null}>
@@ -68,7 +69,8 @@ export function GamePage() {
 								name="near-water"
 								scale={7}
 								position={[
-									-0.09289114319543201, -1.3125008792877197, -31.45930003386298,
+									-0.09289114319543201, -1.3125008792877197,
+									-31.45930003386298,
 								]}
 							>
 								<Suspense fallback={null}>
@@ -77,13 +79,21 @@ export function GamePage() {
 										fbxURL={`/avatar/lobsters/chef/motion/standing-clap.fbx`}
 									></AnimatedLobster>
 								</Suspense>
+
+								<group
+									position={[0, 1.5, 0]}
+									name="lobster-mascot"
+								></group>
 							</group>
 
 							<group
 								name="near-water-l"
 								scale={5}
 								position={[
-									-4.046127052562055, -1.6848011016845703, -31.98570839489203,
+									//
+
+									-4.046127052562055, -1.6848011016845703,
+									-31.98570839489203,
 								]}
 							>
 								<Suspense fallback={null}>
@@ -107,7 +117,10 @@ export function GamePage() {
 							<GameSystem
 								glbSRC={`/env/digital-palace-loklok.glb`}
 							></GameSystem>
-							<SkinedMeshEffect masterName="main-player"></SkinedMeshEffect>
+
+							<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>
+
+							{/* <SkinedMeshEffect masterName="main-player"></SkinedMeshEffect> */}
 						</group>
 					</Bvh>
 				</Suspense>
