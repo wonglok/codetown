@@ -1,0 +1,52 @@
+{
+	"name": "@loklok/codetown",
+	"version": "0.0.0",
+	"description": "My awesome command-line tool",
+	"license": "MIT",
+	"repository": "wonglok/codetown",
+	"funding": "https://www.paypal.com/paypalme/wonglok",
+	"author": {
+		"name": "lok wong",
+		"url": "https://wonglok.com"
+	},
+	"type": "module",
+	"bin": {
+		"codetown": "./cli.js"
+	},
+	"preferGlobal": true,
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"start": "vite build; NODE_ENV=production tsx ./cli.js",
+		"build": "vite build",
+		"dev": "NODE_ENV=development nodemon -w ./cli.ts -x tsx ./cli.js",
+		"test": "node ./cli.js"
+	},
+	"files": [
+		"cli.js",
+		"./dist"
+	],
+	"keywords": [
+		"cli",
+		"codetown"
+	],
+	"dependencies": {
+		"express": "^5.1.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3",
+		"vite-express": "*",
+		"meow": "^13.2.0"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.1",
+		"@types/node": "^22.15.2",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"@vitejs/plugin-react": "^4.4.1",
+		"nodemon": "^3.1.10",
+		"vite": "^6.3.3"
+	}
+}
