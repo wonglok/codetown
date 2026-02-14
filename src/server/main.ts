@@ -18,7 +18,7 @@ export async function runServer({
 	const app = express();
 	const server = createServer(app);
 
-	app.use(express.static(join(__dirname, "../../dist")));
+	app.use(express.static(join(import.meta.resolve("../../dist"))));
 
 	const io = new Server(server); // Attach Socket.IO to the HTTP server
 
