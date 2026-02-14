@@ -138,13 +138,13 @@ export let setupSkinMesh = async ({
 
 			let x =
 				geo.attributes.position.getX(yo) +
-				(Math.random() * 2 - 1.0) * 2.0 * boundingBoxSize.x * 0.01;
+				(Math.random() * 2 - 1.0) * 0.0 * boundingBoxSize.x * 0.01;
 			let y =
 				geo.attributes.position.getY(yo) +
-				(Math.random() * 2 - 1.0) * 2.0 * boundingBoxSize.y * 0.01;
+				(Math.random() * 2 - 1.0) * 0.0 * boundingBoxSize.y * 0.01;
 			let z =
 				geo.attributes.position.getZ(yo) +
-				(Math.random() * 2 - 1.0) * 2.0 * boundingBoxSize.z * 0.01;
+				(Math.random() * 2 - 1.0) * 0.0 * boundingBoxSize.z * 0.01;
 			birthPositionBuffer.attr.setXYZ(i, x, y, z);
 			birthPositionBuffer.attr.needsUpdate = true;
 		}
