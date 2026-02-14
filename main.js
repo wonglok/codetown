@@ -2,24 +2,16 @@ import express from "express";
 import ViteExpress from "vite-express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import open from "open";
 
 export async function runServer({
 	host,
 	port,
-	mode,
-	dist,
-}: {
-	//
-	dist: string;
-	host: string;
-	port: string;
-	mode: "production" | "development";
+	mode
 }) {
 	const app = express();
 	const server = createServer(app);
 
-	app.use(express.static("../../dist"));
+	app.use(express.static('./dist'));
 
 	const io = new Server(server); // Attach Socket.IO to the HTTP server
 
@@ -42,14 +34,13 @@ export async function runServer({
 
 	console.log(`Server is: http://${host}:${port}`);
 
-	server.listen(port, host as any, () => {});
+	server.listen(port, host, () => { });
 
-	if (mode === "production") {
+	if (mode === "development") {
 		ViteExpress.config({
-			mode: mode,
+			mode: "development",
 		});
-		ViteExpress.bind(app, server, () => {
-			open(`http://${host}:${port}`);
-		});
+		ViteExpress.bind(app, server, () => { });
 	}
 }
+
