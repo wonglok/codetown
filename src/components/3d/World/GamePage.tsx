@@ -6,7 +6,7 @@
 
 import { Suspense, useRef, type ReactNode } from "react";
 import { CanvasGPU } from "../CanvasGPU/CanvasGPU";
-import { Bvh, Center, Environment, Gltf } from "@react-three/drei";
+import { Box, Bvh, Center, Environment, Gltf } from "@react-three/drei";
 import { EnvLoader } from "../CanvasGPU/EnvLoader";
 import { JoystickControls } from "./JoystickControls";
 import { GameSystem } from "./GameSystem";
@@ -128,15 +128,15 @@ export function GamePage() {
 								></GameSystem>
 							</Suspense>
 
-							{/* <Suspense fallback={null}>
+							<Suspense fallback={null}>
 								<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>
-							</Suspense> */}
+							</Suspense>
 
 							<Suspense fallback={null}>
 								<group>
-									{/* <LookAt> */}
-									<DiamindComponent></DiamindComponent>
-									{/* </LookAt> */}
+									<LookAt>
+										<DiamindComponent></DiamindComponent>
+									</LookAt>
 								</group>
 							</Suspense>
 
@@ -154,8 +154,10 @@ export function GamePage() {
 function LookAt({ children }: { children: ReactNode }) {
 	const ref = useRef<Group>(null);
 
-	useFrame((st) => {
-		ref.current?.lookAt(st.camera.position);
+	useFrame((st, dt) => {
+		if (ref.current) {
+			ref.current.rotation.y += dt * 0.125;
+		}
 	});
 
 	return <group ref={ref}>{children}</group>;

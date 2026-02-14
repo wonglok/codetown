@@ -525,13 +525,13 @@ export function getDiamondSystem({
 			roughness: 0.0,
 			transmission: 0.0, // We handle this manually in shader
 			thickness: 0.0,
-			// envMap: envMapTex,
-			envMapIntensity: 0.0,
+			envMap: envMapTex,
+			envMapIntensity: 1.0,
 		});
 
 		// Assign custom TSL shaders
 		// material.vertexNode = diamondVertexShader()
-		material.outputNode = diamondFragmentShader();
+		material.colorNode = diamondFragmentShader();
 
 		return material;
 	}

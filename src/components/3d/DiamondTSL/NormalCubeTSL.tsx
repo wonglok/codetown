@@ -22,11 +22,12 @@ export const buildCubeNormal = ({
 	gl: any;
 	geometry: BufferGeometry;
 }): CubeTexture | any => {
-	const renderTarget = new WebGLCubeRenderTarget(512, {
+	const renderTarget = new WebGLCubeRenderTarget(1024, {
 		format: RGBAFormat,
+		generateMipmaps: true,
 	});
 
-	const camera = new CubeCamera(0.01, 10, renderTarget as any);
+	const camera = new CubeCamera(0.01, 100, renderTarget as any);
 	const scene = new Scene();
 	scene.add(camera);
 

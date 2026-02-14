@@ -28,9 +28,9 @@ export function DiamindComponent({}) {
 		// fScene.background = hdr
 		// fScene.environmentIntensity = 1
 
-		const cubeCamRtt = new WebGLCubeRenderTarget(1024, {
+		const cubeCamRtt = new WebGLCubeRenderTarget(256, {
 			format: RGBAFormat,
-			generateMipmaps: false,
+			generateMipmaps: true,
 		});
 
 		const cubeCam = new CubeCamera(0.1, 500, cubeCamRtt);
