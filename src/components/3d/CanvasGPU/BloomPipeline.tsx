@@ -101,10 +101,10 @@ export function BloomPipeline({
 		object.moonLight.shadow.bias = -0.00035;
 
 		//
-		object.sunLight.shadow.intensity = 1.0;
-		object.sunLight.intensity = 1.0;
-		object.moonLight.shadow.intensity = 1.0;
-		object.moonLight.intensity = 1.0;
+		object.sunLight.shadow.intensity = 2;
+		object.sunLight.intensity = 1.5;
+		object.moonLight.shadow.intensity = 2;
+		object.moonLight.intensity = 1.5;
 
 		scene.environmentIntensity = 0.5;
 
