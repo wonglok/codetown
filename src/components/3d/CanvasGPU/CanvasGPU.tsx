@@ -1,238 +1,254 @@
-'use client'
+"use client";
 //
 // Copyright © 2026 Wong Lok. MIT Lincesed
 // Praise Jesus
 //
 
-import { createContext, type ReactNode, useContext, useEffect, useMemo } from 'react'
-import { create } from 'zustand'
-import * as THREE from 'three/webgpu'
-import { Canvas, extend, type ThreeToJSXElements } from '@react-three/fiber'
-import { DRACOLoader, GLTFLoader, HDRLoader } from 'three/examples/jsm/Addons.js'
-import { useRef } from 'react'
-import { type NavMesh } from 'navcat'
+import {
+	createContext,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useMemo,
+} from "react";
+import { create } from "zustand";
+import * as THREE from "three/webgpu";
+import { Canvas, extend, type ThreeToJSXElements } from "@react-three/fiber";
+import {
+	DRACOLoader,
+	GLTFLoader,
+	HDRLoader,
+} from "three/examples/jsm/Addons.js";
+import { useRef } from "react";
+import { type NavMesh } from "navcat";
 
-declare module '@react-three/fiber' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
+declare module "@react-three/fiber" {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
 }
 
-extend(THREE as any)
+extend(THREE as any);
 
-export const rgbeLoader = new HDRLoader()
+export const rgbeLoader = new HDRLoader();
 
-const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath(`/draco/`)
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath(`/draco/`);
 
-export const glbLoader = new GLTFLoader()
-glbLoader.setDRACOLoader(dracoLoader)
+export const glbLoader = new GLTFLoader();
+glbLoader.setDRACOLoader(dracoLoader);
 
 //
 
 export const CanvasGPU: any = ({
-  webgpu = false,
-  webgl = false,
-  antialias = false,
-  children,
+	webgpu = false,
+	webgl = false,
+	antialias = false,
+	children,
 }: {
-  antialias?: boolean
-  webgpu?: boolean
-  webgl?: boolean
-  children?: any
+	antialias?: boolean;
+	webgpu?: boolean;
+	webgl?: boolean;
+	children?: any;
 }) => {
-  const ref = useRef<HTMLDivElement>(null)
+	const ref = useRef<HTMLDivElement>(null);
 
-  let dpr = typeof window !== 'undefined' ? window?.devicePixelRatio || 1 : 1
+	let dpr = typeof window !== "undefined" ? window?.devicePixelRatio || 1 : 1;
 
-  if (dpr >= 2) {
-    dpr = dpr / 2
-  } else if (dpr > 1) {
-    dpr = 1
-  }
+	if (dpr >= 2) {
+		dpr = dpr / 2;
+	} else if (dpr > 1) {
+		dpr = 1;
+	}
 
-  if (webgl) {
-    dpr = typeof window !== 'undefined' ? window?.devicePixelRatio || 1 : 1
-  }
+	if (webgl) {
+		dpr = typeof window !== "undefined" ? window?.devicePixelRatio || 1 : 1;
+	}
 
-  return (
-    <>
-      <div className='w-full h-full relative' ref={ref}>
-        <Canvas
-          //
-          dpr={[1, dpr]}
-          shadows='soft'
-          gl={async (props: any): Promise<any> => {
-            const renderer = new THREE.WebGPURenderer({
-              ...(props as any),
-              // multiview: true,
-              antialias: antialias,
-              alpha: true,
-              logarithmicDepthBuffer: false,
-              forceWebGL: webgpu ? false : webgl,
+	return (
+		<>
+			<div className="w-full h-full relative" ref={ref}>
+				<Canvas
+					//
+					dpr={[1, dpr]}
+					shadows="soft"
+					gl={async (props: any): Promise<any> => {
+						const renderer = new THREE.WebGPURenderer({
+							...(props as any),
+							// multiview: true,
+							antialias: antialias,
+							alpha: true,
+							logarithmicDepthBuffer: false,
+							forceWebGL: webgpu ? false : webgl,
 
-              // alpha: false,
-              // depth: false,
-              // toneMapping: THREE.NoToneMapping,
-              // requiredLimits: {
-              //   //
-              //   // maxColorAttachmentBytesPerSample: 40,
-              //   maxColorAttachmentBytesPerSample: 50,
-              //   //
-              // },
+							// alpha: false,
+							// depth: false,
+							// toneMapping: THREE.NoToneMapping,
+							// requiredLimits: {
+							//   //
+							//   // maxColorAttachmentBytesPerSample: 40,
+							//   maxColorAttachmentBytesPerSample: 50,
+							//   //
+							// },
 
-              //
-            })
+							//
+						});
 
-            await renderer.init()
+						await renderer.init();
 
-            renderer.toneMapping = THREE.NoToneMapping
-            renderer.toneMappingExposure = 1
+						renderer.toneMapping = THREE.NoToneMapping;
+						renderer.toneMappingExposure = 1;
 
-            if (ref.current) {
-              const rect = ref.current.getBoundingClientRect()
-              renderer.setSize(rect.width, rect.height, true)
-            }
+						if (ref.current) {
+							const rect = ref.current.getBoundingClientRect();
+							renderer.setSize(rect.width, rect.height, true);
+						}
 
-            renderer.setPixelRatio(dpr)
+						renderer.setPixelRatio(dpr);
 
-            renderer.shadowMap.enabled = true
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap
+						renderer.shadowMap.enabled = true;
+						renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-            return renderer
-          }}
-        >
-          {children}
-        </Canvas>
-      </div>
-    </>
-  )
-}
+						return renderer;
+					}}
+				>
+					{children}
+				</Canvas>
+			</div>
+		</>
+	);
+};
 
 export const importJSONToStore = (store: StoreType, dataJSON: any) => {
-  const state: any = store.getState()
-  const keys = Object.keys(getSerilisableState())
+	const state: any = store.getState();
+	const keys = Object.keys(getSerilisableState());
 
-  for (const key of keys) {
-    state[key] = dataJSON[key]
-  }
+	for (const key of keys) {
+		state[key] = dataJSON[key];
+	}
 
-  // close panel
-  store.setState({ ...state, activeNodeHash: '' })
+	// close panel
+	store.setState({ ...state, activeNodeHash: "" });
 
-  return
-}
+	return;
+};
 
 export const exportJSONFromStore = (store: StoreType) => {
-  const state: any = store.getState()
-  const keys = Object.keys(getSerilisableState())
-  const output: any = {}
-  for (const key of keys) {
-    output[key] = state[key]
-  }
+	const state: any = store.getState();
+	const keys = Object.keys(getSerilisableState());
+	const output: any = {};
+	for (const key of keys) {
+		output[key] = state[key];
+	}
 
-  return output
-}
+	return output;
+};
 
 const getSerilisableState = () => {
-  return {
-    //
-  }
-}
+	return {
+		//
+	};
+};
 
 const createInitialState = (set: (a: any) => void, get: () => any) => {
-  return {
-    //
-    navMesh: null as NavMesh | null,
-    //
-    // program state
-    ...getSerilisableState(),
-  }
-}
+	return {
+		//
+		navMesh: null as NavMesh | null,
+		//
+		// program state
+		...getSerilisableState(),
+	};
+};
 
-export type AppInitStateType = Awaited<ReturnType<typeof createInitialState>>
+export type AppInitStateType = Awaited<ReturnType<typeof createInitialState>>;
 
 const getStateStore = () => {
-  return create<AppInitStateType>((set, get) => {
-    return createInitialState(set, get)
-  })
-}
+	return create<AppInitStateType>((set, get) => {
+		return createInitialState(set, get);
+	});
+};
 
-type StoreType = Awaited<ReturnType<typeof getStateStore>>
+type StoreType = Awaited<ReturnType<typeof getStateStore>>;
 
-const RawContextApp = createContext<StoreType>(getStateStore())
+const RawContextApp = createContext<StoreType>(getStateStore());
 
 export const CoreContext = ({
-  children,
-  state = null,
-  subscribe = (a: AppInitStateType, b: AppInitStateType) => {},
+	children,
+	state = null,
+	subscribe = (a: AppInitStateType, b: AppInitStateType) => {},
 }: {
-  children?: ReactNode
-  state?: AppInitStateType | Partial<AppInitStateType> | null
-  subscribe?: (a: AppInitStateType, b: AppInitStateType) => void
+	children?: ReactNode;
+	state?: AppInitStateType | Partial<AppInitStateType> | null;
+	subscribe?: (a: AppInitStateType, b: AppInitStateType) => void;
 }) => {
-  const store = useMemo(() => {
-    return getStateStore()
-  }, [])
+	const store = useMemo(() => {
+		return getStateStore();
+	}, []);
 
-  useEffect(() => {
-    if (!subscribe) {
-      return
-    }
-    return store.subscribe(subscribe)
-  }, [subscribe])
+	useEffect(() => {
+		if (!subscribe) {
+			return;
+		}
+		return store.subscribe(subscribe);
+	}, [subscribe]);
 
-  useEffect(() => {
-    if (state && store) {
-      store.setState(state)
-    }
-  }, [state, store])
+	useEffect(() => {
+		if (state && store) {
+			store.setState(state);
+		}
+	}, [state, store]);
 
-  return (
-    <>
-      {store && (
-        <RawContextApp.Provider value={store}>
-          <SetDefaltValue store={store}>
-            <>{children}</>
-          </SetDefaltValue>
-        </RawContextApp.Provider>
-      )}
-    </>
-  )
-}
+	return (
+		<>
+			{store && (
+				<RawContextApp.Provider value={store}>
+					<SetDefaltValue store={store}>
+						<>{children}</>
+					</SetDefaltValue>
+				</RawContextApp.Provider>
+			)}
+		</>
+	);
+};
 
 export const GlobalStore = {
-  store: null as StoreType | null,
-}
+	store: null as StoreType | null,
+};
 
-export const SetDefaltValue = ({ store, children }: { children?: ReactNode; store: StoreType | null }) => {
-  useEffect(() => {
-    if (store) {
-      GlobalStore.store = store
-    }
-  }, [store])
+export const SetDefaltValue = ({
+	store,
+	children,
+}: {
+	children?: ReactNode;
+	store: StoreType | null;
+}) => {
+	useEffect(() => {
+		if (store) {
+			GlobalStore.store = store;
+		}
+	}, [store]);
 
-  return children
-}
+	return children;
+};
 
 export const useCore = (fnc: (state: AppInitStateType) => any) => {
-  const useCore = useContext(RawContextApp)
-  return useCore(fnc)
-}
+	const useCore = useContext(RawContextApp);
+	return useCore(fnc);
+};
 
 export const setStateCore = (values = {}) => {
-  if (GlobalStore.store) {
-    GlobalStore.store.setState(values)
-  } else {
-    const ttt = setInterval(() => {
-      if (GlobalStore.store) {
-        clearInterval(ttt)
-        GlobalStore.store.setState(values)
-      }
-    })
-  }
-}
+	if (GlobalStore.store) {
+		GlobalStore.store.setState(values);
+	} else {
+		const ttt = setInterval(() => {
+			if (GlobalStore.store) {
+				clearInterval(ttt);
+				GlobalStore.store.setState(values);
+			}
+		});
+	}
+};
 
 export const useStoreOfCoreContext = () => {
-  const useCore2 = useContext(RawContextApp)
-  return useCore2
-}
+	const useCore2 = useContext(RawContextApp);
+	return useCore2;
+};
