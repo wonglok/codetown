@@ -1,10 +1,9 @@
 {
-	"name": "@wonglok831/codetown",
-	"version": "0.0.5",
+	"name": "codetown",
+	"version": "0.0.8",
 	"description": "codetown is a place to code and have fun",
 	"license": "MIT",
 	"repository": "wonglok/codetown",
-	"funding": "https://www.paypal.com/paypalme/wonglok",
 	"author": {
 		"name": "lok wong",
 		"url": "https://wonglok.com"
