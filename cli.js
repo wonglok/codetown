@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 
-import 'tsx'
+// import 'tsx'
 import meow from "meow";
 import express from "express";
 import ViteExpress from "vite-express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 const cli = meow(
 	`
@@ -36,7 +41,6 @@ Examples
 	},
 );
 
-
 async function runServer({
 	host,
 	port,
@@ -45,9 +49,13 @@ async function runServer({
 	const app = express();
 	const server = createServer(app);
 
-	app.use(express.static('./dist'));
-
 	const io = new Server(server); // Attach Socket.IO to the HTTP server
+
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = dirname(__filename);
+
+	app.use('/', express.static(path.join(__dirname, 'public'))); // 'public' is folder name
+	app.use('/', express.static(path.join(__dirname, 'dist'))); // 'public' is folder name
 
 	app.get("/hello", (_, res) => {
 		res.send("Hello Vite + React + TypeScript!");
@@ -70,15 +78,10 @@ async function runServer({
 
 	server.listen(port, host, () => { });
 
-	if (mode === "development") {
-		ViteExpress.config({
-			mode: "development",
-		});
+	if (mode === 'development') {
 		ViteExpress.bind(app, server, () => { });
 	}
 }
-
-
 
 runServer({
 	port: `${cli.flags.port || 8077}`,
@@ -87,4 +90,4 @@ runServer({
 });
 
 
-
+//
