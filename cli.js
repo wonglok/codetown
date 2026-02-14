@@ -72,14 +72,17 @@ async function runServer({
 		socket.on("disconnect", (reason) => {
 			console.log(`Socket disconnected: ${reason}`);
 		});
+
+		//
 	});
 
-	console.log(`Server is: http://${host}:${port}`);
+	console.log(`=============\nServer is online at: http://${host}:${port}\n=============`);
 
 	server.listen(port, host, () => { });
 
 	if (mode === 'development') {
-		ViteExpress.bind(app, server, () => { });
+		ViteExpress.bind(app, server, () => {
+		});
 	}
 }
 
