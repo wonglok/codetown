@@ -1,5 +1,5 @@
 {
-	"name": "@loklok/codetown",
+	"name": "@wonglok831/codetown",
 	"version": "0.0.0",
 	"description": "codetown is a place to code and have fun",
 	"license": "MIT",
@@ -18,6 +18,8 @@
 		"node": ">=18"
 	},
 	"scripts": {
+		"first-time": "npm publish --access public",
+		"deploy": "vite build; publish --on-build",
 		"start": "vite build; NODE_ENV=production tsx ./src/server/cli.js",
 		"build": "vite build",
 		"dev": "NODE_ENV=development nodemon -w ./src -w ./public -x tsx ./src/server/cli.js",
@@ -34,6 +36,7 @@
 	"dependencies": {
 		"express": "^5.1.0",
 		"meow": "^13.2.0",
+		"publish": "^0.6.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"socket.io": "^4.8.3",
