@@ -16,6 +16,7 @@ Options
 Examples
 	$ codetown
 	$ codetown --port 8080 // custom port
+	$ codetown --host 0.0.0.0 --port 8080 // custom host to local share and use port 8080
 `,
 	{
 		importMeta: import.meta,

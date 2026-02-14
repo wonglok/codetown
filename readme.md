@@ -1,51 +1,27 @@
-# node-cli-boilerplate
-
-> Boilerplate to kickstart creating a Node.js command-line tool
-
-This is what I use for [my own command-line tools](https://www.npmjs.com/~sindresorhus).
-
-Also check out [`node-module-boilerplate`](https://github.com/sindresorhus/node-module-boilerplate).
-
 ## Getting started
 
-**Click the "Use this template" button.**
+# @wonglok831/codetown
 
-Alternatively, create a new directory and then run:
-
-```sh
-curl -fsSL https://github.com/sindresorhus/node-cli-boilerplate/archive/main.tar.gz | tar -xz --strip-components=1
-```
-
----
-
-**Remove everything from here and above**
-
----
-
-# unicorn-fun-cli
-
-> My awesome command-line tool
+> My awesome ai coding manager in 3d funz
 
 ## Install
 
 ```sh
-npm install --global unicorn-fun-cli
+npm install --global @wonglok831/codetown
 ```
 
 ## Usage
 
 ```
-$ unicorn-fun --help
+Usage
+	$ codetown [input]
 
-  Usage
-    $ unicorn-fun [input]
+Options
+	--port  web port  [Default: 8077]
+	--host  host  [Default: 127.0.0.1]
 
-  Options
-    --postfix  Lorem ipsum  [Default: rainbows]
-
-  Examples
-    $ cli-name
-    unicorns & rainbows
-    $ cli-name ponies
-    ponies & rainbows
+Examples
+	$ codetown
+	$ codetown --port 8080 // custom port
+	$ codetown --host 0.0.0.0 --port 8080 // custom host to local share and use port 8080
 ```
