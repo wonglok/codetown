@@ -104,6 +104,7 @@ export let setupSkinMesh = async ({
 	const birthNormalBuffer = createBuffer({ itemSize: 3, type: "vec3" });
 
 	const bindMatrixNode = uniform(skinnedMesh.bindMatrix, "mat4");
+
 	// const bindMatrixInverseNode = uniform(
 	//   skinnedMesh.bindMatrixInverse,
 	//   "mat4"

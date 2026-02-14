@@ -6,13 +6,15 @@
 
 import { Suspense } from "react";
 import { CanvasGPU } from "../CanvasGPU/CanvasGPU";
-import { Bvh, Center, Gltf } from "@react-three/drei";
+import { Bvh, Center, Environment, Gltf } from "@react-three/drei";
 import { EnvLoader } from "../CanvasGPU/EnvLoader";
 import { JoystickControls } from "./JoystickControls";
 import { GameSystem } from "./GameSystem";
 import { useAppState } from "./useAppState";
 import { AnimatedLobster } from "../SkinnedMesh/AnimatedLobster";
 import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
+import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
+import { BloomPipeline } from "../CanvasGPU/BloomLoader";
 // import { SkinedMeshEffect } from '../../SkinnedMesh/SkinedMeshEffect'
 // import { SkinedMeshAnimatedGLB } from '../../SkinnedMesh/SkinedMeshAnimatedGLB'
 // import { AnimatedLobster } from "../../SkinnedMesh/AnimatedLobster";
@@ -27,10 +29,15 @@ export function GamePage() {
 			<CanvasGPU webgpu>
 				<Suspense fallback={null}>
 					<Bvh firstHitOnly>
-						<EnvLoader
+						<BloomPipeline url={`/hdr/default.hdr`}></BloomPipeline>
+						{/* <EnvLoader
 							//
 							url={`/hdr/default.hdr`}
-						></EnvLoader>
+						></EnvLoader> */}
+						{/* <Environment
+							background
+							files={[`/hdr/default.hdr`]}
+						></Environment> */}
 
 						<group position={[0, -1.999, 0]}>
 							<Suspense fallback={null}>
@@ -113,12 +120,19 @@ export function GamePage() {
                   </Center>
                 </Suspense>
               </group> */}
+							<Suspense fallback={null}>
+								<GameSystem
+									glbSRC={`/env/digital-palace-loklok.glb`}
+								></GameSystem>
+							</Suspense>
 
-							<GameSystem
-								glbSRC={`/env/digital-palace-loklok.glb`}
-							></GameSystem>
+							{/* <Suspense fallback={null}>
+								<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>
+							</Suspense> */}
 
-							<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>
+							<Suspense fallback={null}>
+								<DiamindComponent></DiamindComponent>
+							</Suspense>
 
 							{/* <SkinedMeshEffect masterName="main-player"></SkinedMeshEffect> */}
 						</group>
