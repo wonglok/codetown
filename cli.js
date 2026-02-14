@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 
 
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 
 
 const cli = meow(
@@ -54,8 +54,8 @@ async function runServer({
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = dirname(__filename);
 
-	app.use('/', express.static(path.join(__dirname, 'public'))); // 'public' is folder name
-	app.use('/', express.static(path.join(__dirname, 'dist'))); // 'public' is folder name
+	app.use('/', express.static(join(__dirname, 'public'))); // 'public' is folder name
+	app.use('/', express.static(join(__dirname, 'dist'))); // 'public' is folder name
 
 	app.get("/hello", (_, res) => {
 		res.send("Hello Vite + React + TypeScript!");
