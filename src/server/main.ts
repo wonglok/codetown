@@ -31,7 +31,7 @@ export async function runServer({
 
 	const app = express();
 
-	app.use(express.static(join(import.meta.url, "../../dist")));
+	app.use(express.static(join(process.cwd(), "./dist")));
 
 	const server = createServer(app);
 

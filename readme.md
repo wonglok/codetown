@@ -5,7 +5,7 @@
 ## Npx
 
 ```sh
-npx codetown
+npx codetown@latest
 ```
 
 ```sh
