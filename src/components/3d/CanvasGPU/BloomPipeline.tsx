@@ -8,7 +8,7 @@ import {
 	Object3D,
 	UnsignedByteType,
 } from "three";
-import { PostProcessing } from "three/webgpu";
+import { PostProcessing, SRGBColorSpace } from "three/webgpu";
 import {
 	pass,
 	mrt,
@@ -25,10 +25,14 @@ import {
 	float,
 	mix,
 	blendColor,
+	colorSpaceToWorking,
+	roughness,
+	metalness,
+	vec2,
 } from "three/tsl";
-import { ssgi } from "three/addons/tsl/display/SSGINode.js";
+import { ssr } from "three/addons/tsl/display/SSRNode.js";
 import { bloom } from "three/addons/tsl/display/BloomNode.js";
-import { traa } from "three/addons/tsl/display/TRAANode.js";
+// import { traa } from "three/addons/tsl/display/TRAANode.js";
 import { fxaa } from "three/addons/tsl/display/FXAANode.js";
 import { useAppState } from "../World/useAppState";
 
@@ -112,28 +116,49 @@ export function BloomPipeline({
 		scenePass.setMRT(
 			mrt({
 				output: output,
-				// diffuseColor: diffuseColor,
-				// normal: directionToColor(normalView),
-				// velocity: velocity,
+				normal: directionToColor(normalView),
+				metalrough: vec2(metalness, roughness), // pack metalness and roughness into a single attachment
 			}),
 		);
 
-		const scenePassColor = scenePass.getTextureNode("output");
-		// const scenePassDiffuse = scenePass.getTextureNode("diffuseColor");
-		// const scenePassDepth = scenePass.getTextureNode("depth");
+		const scenePassColor = scenePass
+			.getTextureNode("output")
+			.toInspector("Color");
+		const scenePassNormal = scenePass
+			.getTextureNode("normal")
+			.toInspector("Normal", (node) => {
+				return colorSpaceToWorking(node, SRGBColorSpace);
+			});
+		const scenePassDepth = scenePass
+			.getTextureNode("depth")
+			.toInspector("Depth", () => {
+				return scenePass.getLinearDepthNode();
+			});
+		const scenePassMetalRough = scenePass
+			.getTextureNode("metalrough")
+			.toInspector("Metalness-Roughness");
 
-		// const scenePassNormal = scenePass.getTextureNode("normal");
-		// const scenePassVelocity = scenePass.getTextureNode("velocity");
+		// optional: optimize bandwidth by reducing the texture precision for normals and metal/roughness
 
-		// // const diffuseTexture = scenePass.getTexture('diffuseColor')
-		// // diffuseTexture.type = UnsignedByteType
+		const normalTexture = scenePass.getTexture("normal");
+		normalTexture.type = UnsignedByteType;
 
-		// // const normalTexture = scenePass.getTexture('normal')
-		// // normalTexture.type = UnsignedByteType
+		const metalRoughTexture = scenePass.getTexture("metalrough");
+		metalRoughTexture.type = UnsignedByteType;
 
-		// const sceneNormal = sample((uv) => {
-		// 	return colorToDirection(scenePassNormal.sample(uv));
-		// });
+		const sceneNormal = sample((uv) => {
+			return colorToDirection(scenePassNormal.sample(uv));
+		});
+
+		//
+
+		const ssrPass = ssr(
+			scenePassColor,
+			scenePassDepth,
+			sceneNormal,
+			scenePassMetalRough.r,
+			scenePassMetalRough.g,
+		).toInspector("SSR");
 
 		// //
 
@@ -172,7 +197,7 @@ export function BloomPipeline({
 
 		const postProcessing = new PostProcessing(renderer as any);
 
-		const aaColor = fxaa(scenePassColor);
+		const aaColor = fxaa(scenePassColor.add(ssrPass));
 
 		postProcessing.outputNode = add(aaColor, bloomPass.mul(1.0));
 

@@ -18,16 +18,6 @@ export function DiamindComponent({}) {
 	const [dAPI, setDiamond] = useState<any>(null);
 
 	useEffect(() => {
-		// if (!churchModel) {
-		//   return
-		// }
-		// const fScene = new Scene()
-		// hdr.mapping = EquirectangularReflectionMapping
-		// hdr.needsPMREMUpdate = true
-		// fScene.environment = hdr
-		// fScene.background = hdr
-		// fScene.environmentIntensity = 1
-
 		const cubeCamRtt = new WebGLCubeRenderTarget(256, {
 			format: RGBAFormat,
 			generateMipmaps: true,
