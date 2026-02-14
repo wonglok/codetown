@@ -89,7 +89,7 @@ export function getDiamondSystem({
 
 		// Optical properties
 		aberration: uniform(0.012),
-		refraction: uniform(2.417), // Diamond IOR
+		refraction: uniform(3.5), // Diamond IOR
 
 		// Geometry adjustments
 		normalOffset: uniform(0.0),
@@ -103,7 +103,7 @@ export function getDiamondSystem({
 		boost: uniform(color(0.892, 0.892, 0.98595025)),
 
 		// Sphere approximation parameters
-		radius: uniform(0.05),
+		radius: uniform(0.029),
 		centreOffset: uniform(new Vector3(0, 0, 0)),
 	};
 
@@ -501,11 +501,8 @@ export function getDiamondSystem({
 		);
 		const vReflectionFactor = clamp(fresnel, 0.0, 1.0);
 
-		// Get refracted color through ray tracing
 		const refractedColor = traceRay(vVecPos, vI, normalize(vWorldNormal));
 
-		// Mix with standard lighting (optional - from original shader)
-		// For pure diamond effect, you might want to skip standard lighting
 		const finalColor = mix(
 			refractedColor,
 			mul(refractedColor, vec3(1.0)), // Replace with your standard lighting if needed

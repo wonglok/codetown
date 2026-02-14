@@ -168,7 +168,7 @@ export function BloomPipeline({
 		// 	camera,
 		// );
 
-		const bloomPass = bloom(scenePassColor, 0.1, 0.2, 1.0);
+		const bloomPass = bloom(scenePassColor, 0.5, 1.0, 0.5);
 
 		const postProcessing = new PostProcessing(renderer as any);
 
