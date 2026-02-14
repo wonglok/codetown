@@ -18,15 +18,6 @@ export async function runServer({ host, port, mode }: any) {
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = dirname(__filename);
 
-	const currentWorkingDir = process.cwd();
-
-	const actors = await JSONFilePreset(
-		join(currentWorkingDir, ".codetown", "ai-calls.json"),
-		{ items: [] },
-	);
-
-	// app.use("/", express.static(join(__dirname, "../../../public"))); // 'public' is folder name
-
 	const settings = await getSettingsRouter();
 
 	app.use("/settings", settings.router);
