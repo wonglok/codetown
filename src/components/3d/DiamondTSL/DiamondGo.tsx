@@ -536,28 +536,6 @@ export function getDiamondSystem({
 		return material;
 	}
 
-	// ============================================
-	// USAGE EXAMPLE
-	// ============================================
-
-	/*
-import { CubeTextureLoader } from 'three';
-
-// Load your normal cube map (contains facet normals)
-const normalCubeMap = new CubeTextureLoader()
-    .setPath('path/to/normals/')
-    .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
-
-// Your environment map for reflections
-const envMap = ...; // PMREM or CubeTexture
-
-const diamondMaterial = createDiamondMaterial(envMap, normalCubeMap);
-
-const geometry = new THREE.SphereGeometry(1.5, 64, 64);
-const diamond = new THREE.Mesh(geometry, diamondMaterial);
-scene.add(diamond);
-*/
-
 	return {
 		createDiamondMaterial,
 		uniforms,

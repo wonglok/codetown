@@ -12,8 +12,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 
-const cli = meow(
-	`
+const cli = meow(`
 Usage
 	$ codetown [input]
 
