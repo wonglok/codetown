@@ -3,6 +3,7 @@ import ViteExpress from "vite-express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import open from "open";
+import { join } from "path";
 
 export async function runServer({
 	host,
@@ -29,6 +30,8 @@ export async function runServer({
 	});
 
 	const app = express();
+
+	app.use(express.static(join(import.meta.url, "../../dist")));
 
 	const server = createServer(app);
 

@@ -37,7 +37,7 @@ import('./main.ts').then(({ runServer }) => {
 	runServer({
 		port: cli.flags.port || 8077,
 		host: `${cli.flags.host || '127.0.0.1'}`,
-		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
+		mode: 'development', //process.env.NODE_ENV === 'development' ? "development" : "production",
 		currentFile,
 		currentFolder
 	});
