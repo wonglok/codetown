@@ -24,8 +24,7 @@
 	},
 	"files": [
 		"dist",
-		"./cli.js",
-		"./main.js"
+		"./cli.js"
 	],
 	"keywords": [
 		"cli",
