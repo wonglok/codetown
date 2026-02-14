@@ -1,4 +1,4 @@
-## Getting started
+## Getting started with CodeTown
 
 # @wonglok831/codetown
 
@@ -8,6 +8,12 @@
 
 ```sh
 npm install --global @wonglok831/codetown
+```
+
+## Npx
+
+```sh
+npx codetown
 ```
 
 ## Usage

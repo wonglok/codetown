@@ -38,12 +38,12 @@ export function runServer({
 	});
 
 	io.on("connection", (socket) => {
-		console.log("a client connected");
+		console.log("a web client connected", socket);
 
 		socket.on("greet", (arg) => {
 			console.log(arg);
 		});
-		socket.emit("greet", { hello: 123 });
+		socket.emit("greet", { hello: socket.id });
 
 		socket.on("disconnect", (reason) => {
 			console.log(`Socket disconnected: ${reason}`);
@@ -52,9 +52,9 @@ export function runServer({
 
 	//
 
-	server.listen(port, host, () =>
-		console.log(`Server is: http://localhost:${port}`),
-	);
+	console.log(`Server is: http://${host}:${port}`);
+
+	server.listen(port, host, () => {});
 
 	ViteExpress.bind(app, server);
 }
