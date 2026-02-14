@@ -10,7 +10,8 @@ Usage
 	$ codetown [input]
 
 Options
-	--port  web-server-port  [Default: 8077]
+	--port  web port  [Default: 8077]
+	--host  host  [Default: 127.0.0.1]
 
 Examples
 	$ codetown
@@ -30,13 +31,13 @@ Examples
 const currentFile = import.meta.url;
 const currentFolder = dirname(currentFile);
 
-import('./src/server/main.ts').then(({ runServer }) => {
-	runServer(cli.flags.port || 8077, {
+import('./main.ts').then(({ runServer }) => {
+	runServer({
+		port: cli.flags.port || 8077,
+		host: cli.flags.host || '127.0.0.1',
 		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
 		currentFile,
 		currentFolder
 	});
 })
 
-
-// console.log(unicornFun());

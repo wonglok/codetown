@@ -1,7 +1,7 @@
 {
 	"name": "@loklok/codetown",
 	"version": "0.0.0",
-	"description": "My awesome command-line tool",
+	"description": "codetown is a place to code and have fun",
 	"license": "MIT",
 	"repository": "wonglok/codetown",
 	"funding": "https://www.paypal.com/paypalme/wonglok",
@@ -11,20 +11,20 @@
 	},
 	"type": "module",
 	"bin": {
-		"codetown": "./cli.js"
+		"codetown": "./src/server/cli.js"
 	},
 	"preferGlobal": true,
 	"engines": {
 		"node": ">=18"
 	},
 	"scripts": {
-		"start": "vite build; NODE_ENV=production tsx ./cli.js",
+		"start": "vite build; NODE_ENV=production tsx ./src/server/cli.js",
 		"build": "vite build",
-		"dev": "NODE_ENV=development nodemon -w ./cli.ts -x tsx ./cli.js",
-		"test": "node ./cli.js"
+		"dev": "NODE_ENV=development nodemon -w ./src -w ./public -x tsx ./src/server/cli.js",
+		"test": "node ./src/server/cli.js"
 	},
 	"files": [
-		"cli.js",
+		"./src/server",
 		"./dist"
 	],
 	"keywords": [
@@ -33,12 +33,14 @@
 	],
 	"dependencies": {
 		"express": "^5.1.0",
+		"meow": "^13.2.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
+		"socket.io": "^4.8.3",
+		"socket.io-client": "^4.8.3",
 		"tsx": "^4.19.3",
 		"typescript": "^5.8.3",
-		"vite-express": "*",
-		"meow": "^13.2.0"
+		"vite-express": "*"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.1",

@@ -1,0 +1,6 @@
+import { io } from "socket.io-client";
+
+export const getSocket = () =>
+	io("/", {
+		transports: ["websocket"],
+	});
