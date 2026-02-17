@@ -44,6 +44,7 @@
 		"copy-to-clipboard": "^3.3.3",
 		"db-local": "^3.1.0",
 		"express": "^5.1.0",
+		"howler": "^2.2.4",
 		"lodash": "^4.17.23",
 		"lowdb": "^7.0.1",
 		"md5": "^2.3.0",

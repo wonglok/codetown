@@ -18,7 +18,7 @@ export function DiamindComponent({}) {
 	const [dAPI, setDiamond] = useState<any>(null);
 
 	useEffect(() => {
-		const cubeCamRtt = new WebGLCubeRenderTarget(256, {
+		const cubeCamRtt = new WebGLCubeRenderTarget(512, {
 			format: RGBAFormat,
 			generateMipmaps: true,
 		});
@@ -45,11 +45,9 @@ export function DiamindComponent({}) {
 
 		const mesh = new Mesh(obj.geometry, material);
 		mesh.castShadow = true;
-		mesh.scale.setScalar(75);
+		mesh.scale.setScalar(25);
 
 		const capture = ({ scene }: any) => {
-			//
-
 			mesh.getWorldPosition(cubeCam.position);
 
 			// systemForDiamond.uniforms.centreOffset.value.copy(cubeCam.position)
@@ -88,7 +86,13 @@ export function DiamindComponent({}) {
 				{ type: "number", name: "normalOffset", min: 0, max: 5 },
 				{ type: "number", name: "squashFactor", min: 0, max: 2 },
 				{ type: "number", name: "distanceOffset", min: 0, max: 5 },
-				{ type: "number", name: "geometryFactor", min: 0, max: 5 },
+				{
+					type: "number",
+					name: "geometryFactor",
+					min: 0,
+					max: 0.25,
+					step: 0.01,
+				},
 				//
 				{ type: "color", name: "absorbption", min: 0, max: 5 },
 				{ type: "color", name: "correction", min: 0, max: 2 },
@@ -155,6 +159,9 @@ export function DiamindComponent({}) {
 		}
 
 		//
+		// return () => {
+		// 	normalCubeMap.dispose();
+		// };
 	}, []);
 
 	useFrame(({ scene }) => {

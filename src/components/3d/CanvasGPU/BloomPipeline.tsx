@@ -71,10 +71,10 @@ export function BloomPipeline({
 		object.sunLight.shadow.camera.near = 0;
 		object.sunLight.shadow.camera.far = 150 * 2;
 
-		object.sunLight.shadow.camera.left = -5.123 * 4;
-		object.sunLight.shadow.camera.right = 5.123 * 4;
-		object.sunLight.shadow.camera.bottom = -5.123 * 4;
-		object.sunLight.shadow.camera.top = 5.123 * 4;
+		object.sunLight.shadow.camera.left = -5.123 * 8;
+		object.sunLight.shadow.camera.right = 5.123 * 8;
+		object.sunLight.shadow.camera.bottom = -5.123 * 8;
+		object.sunLight.shadow.camera.top = 5.123 * 8;
 
 		object.sunLight.shadow.mapSize.width = 512;
 		object.sunLight.shadow.mapSize.height = 512;
@@ -94,10 +94,10 @@ export function BloomPipeline({
 		object.moonLight.shadow.camera.near = 0;
 		object.moonLight.shadow.camera.far = 150 * 2;
 
-		object.moonLight.shadow.camera.left = -5.123 * 4;
-		object.moonLight.shadow.camera.right = 5.123 * 4;
-		object.moonLight.shadow.camera.bottom = -5.123 * 4;
-		object.moonLight.shadow.camera.top = 5.123 * 4;
+		object.moonLight.shadow.camera.left = -5.123 * 8;
+		object.moonLight.shadow.camera.right = 5.123 * 8;
+		object.moonLight.shadow.camera.bottom = -5.123 * 8;
+		object.moonLight.shadow.camera.top = 5.123 * 8;
 
 		object.moonLight.shadow.mapSize.width = 512;
 		object.moonLight.shadow.mapSize.height = 512;
@@ -152,13 +152,13 @@ export function BloomPipeline({
 
 		//
 
-		const ssrPass = ssr(
-			scenePassColor,
-			scenePassDepth,
-			sceneNormal,
-			scenePassMetalRough.r,
-			scenePassMetalRough.g,
-		).toInspector("SSR");
+		// const ssrPass = ssr(
+		// 	scenePassColor,
+		// 	scenePassDepth,
+		// 	sceneNormal,
+		// 	scenePassMetalRough.r,
+		// 	scenePassMetalRough.g,
+		// ).toInspector("SSR");
 
 		// //
 
@@ -196,8 +196,8 @@ export function BloomPipeline({
 		const bloomPass = bloom(scenePassColor, 0.1, 1.0, 0.95);
 
 		const postProcessing = new PostProcessing(renderer as any);
-
-		const aaColor = fxaa(scenePassColor.add(ssrPass));
+		// .add(ssrPass)
+		const aaColor = fxaa(scenePassColor);
 
 		postProcessing.outputNode = add(aaColor, bloomPass.mul(1.0));
 

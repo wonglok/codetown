@@ -89,13 +89,13 @@ export function getDiamondSystem({
 
 		// Optical properties
 		aberration: uniform(0.012),
-		refraction: uniform(3.5), // Diamond IOR
+		refraction: uniform(2.47153), // Diamond IOR
 
 		// Geometry adjustments
 		normalOffset: uniform(0.0),
 		squashFactor: uniform(0.98),
 		distanceOffset: uniform(0.0),
-		geometryFactor: uniform(0.28),
+		geometryFactor: uniform(0.17),
 
 		// Color correction
 		absorbption: uniform(color(0, 0, 0)),
@@ -243,6 +243,7 @@ export function getDiamondSystem({
 		return result;
 	});
 
+	//
 	// Debug bounce colors
 	const debugBounces: any = Fn(([count]: any) => {
 		const color = vec3(1.0, 1.0, 1.0);
@@ -330,7 +331,7 @@ export function getDiamondSystem({
 
 		const count = int(0);
 
-		const end = 7;
+		const end = 5;
 		// Ray bounce loop
 		Loop({ start: int(0), end: int(end) }, ({ i }) => {
 			//
@@ -488,6 +489,8 @@ export function getDiamondSystem({
 	// ============================================
 
 	const diamondFragmentShader = Fn(() => {
+		//
+		//
 		// Fresnel reflection factor
 		const fresnel = add(
 			uniforms.mFresnelBias,

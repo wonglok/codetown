@@ -1,10 +1,10 @@
 import "./App.css";
 
-import reactLogo from "./assets/react.svg";
+// import reactLogo from "./assets/react.svg";
 
 import { useEffect, useState } from "react";
 
-import { getChatSocket } from "./clients/socket";
+import { getChatSocket, getGenericSocket } from "./clients/socket";
 import { GamePage } from "../components/3d/World/GamePage";
 
 import {
@@ -16,15 +16,17 @@ import {
 	useParams,
 } from "react-router-dom";
 
+//
+
 function App() {
 	useEffect(() => {
-		const socket = getChatSocket();
+		const socket = getGenericSocket({ namespace: `/chat` });
 
 		socket.on("greet", (args) => {
 			console.log(args);
 		});
 
-		socket.emit("greet", "yo");
+		socket.emit("greet", "yoyo");
 
 		return () => {
 			socket.disconnect();
@@ -46,7 +48,7 @@ function App() {
 							<nav>
 								<ul>
 									<li>
-										<Link to="/">Welcome</Link>
+										<Link to="/">Home</Link>
 									</li>
 									<li>
 										<Link to="/app">App</Link>
@@ -65,7 +67,7 @@ function App() {
 }
 
 function Topics() {
-	let match = useRouteMatch();
+	const match = useRouteMatch();
 
 	return (
 		<div>
@@ -95,8 +97,11 @@ function Topics() {
 }
 
 function Topic() {
-	let { topicId }: any = useParams();
+	const { topicId }: any = useParams();
+
 	return <h3>Requested topic ID: {topicId}</h3>;
 }
 
 export default App;
+
+//
