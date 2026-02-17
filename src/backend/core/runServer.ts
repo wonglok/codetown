@@ -5,9 +5,14 @@ import { Server } from "socket.io";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { spawn } from "node:child_process";
-import { JSONFilePreset } from "lowdb/node";
-import { getSettingsRouter } from "../router/settings";
+import { CorePaths } from "./workpath";
+import { mkdir } from "fs/promises";
+
+// import { spawn } from "node:child_process";
+// import { JSONFilePreset } from "lowdb/node";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export async function runServer({ host, port, mode }: any) {
 	const app = express();
@@ -15,18 +20,23 @@ export async function runServer({ host, port, mode }: any) {
 
 	const io = new Server(server); // Attach Socket.IO to the HTTP server
 
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = dirname(__filename);
+	await Promise.all(
+		Object.values(CorePaths).map((pth) => {
+			return mkdir(dirname(pth), { recursive: true });
+		}),
+	);
 
-	const settings = await getSettingsRouter();
+	const { getToolsRouter } = await import("../router/tools");
 
-	app.use("/settings", settings.router);
+	const tools = await getToolsRouter();
+
+	app.use("/api/tools", tools.router);
 
 	if (mode === "production") {
 		app.use("/", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
 	}
 
-	io.on("connection", (socket) => {
+	io.of("/chat").on("connection", (socket) => {
 		console.log("a web client connected", socket.id);
 
 		socket.on("greet", (arg) => {
@@ -39,68 +49,26 @@ export async function runServer({ host, port, mode }: any) {
 		});
 		//
 		//
-		//
-		//
-
-		//
-		//
-		//
-		socket.on("ai-tool", (rootEvent) => {
-			//
-			const child = spawn("npx", [rootEvent.tool, rootEvent.prompt]);
-
-			// Listen for stdout data events
-			child.stdout.on("data", (data) => {
-				console.log(`stdout: ${data.toString()}`);
-
-				socket.emit("ai-tool-data", {
-					session: rootEvent.sessionID,
-					text: data.toString(),
-				});
-			});
-
-			// Listen for stderr data events
-			child.stderr.on("data", (data) => {
-				console.error(`stderr: ${data.toString()}`);
-
-				socket.emit("ai-tool-error", {
-					session: rootEvent.sessionID,
-					text: data.toString(),
-				});
-			});
-
-			// Listen for the process closing event
-			child.on("close", (code) => {
-				console.log(`child process exited with code ${code}`);
-
-				socket.emit("ai-tool-close", {
-					session: rootEvent.sessionID,
-					text: `${code}`,
-				});
-			});
-
-			// Listen for the process error event (e.g., if the command is not found)
-			child.on("error", (err) => {
-				console.error("Failed to start child process:", err);
-			});
-
-			//
-		});
-		//
 	});
-
-	console.log(
-		`=============\nServer is online at: http://${host}:${port}\n=============`,
-	);
-
-	server.listen(port, host, () => {});
 
 	if (mode === "development") {
 		ViteExpress.config({
 			mode: "development",
 		});
 		ViteExpress.bind(app, server, () => {
-			console.log("running vite now");
+			console.log(
+				`=============\nVite is online at: http://${host}:${port}\n=============`,
+			);
 		});
+	} else {
+		console.log(
+			`=============\nServer is online at: http://${host}:${port}\n=============`,
+		);
 	}
+
+	server.listen(port, host, () => {});
 }
+
+//
+//
+//
