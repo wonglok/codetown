@@ -7,7 +7,7 @@ export const useAppState = create(() => {
 		colliderSource: null as Group | null,
 		//
 		navMesh: null as NavMesh | null,
-		chosenLobster: "guy",
+		chosenPlayerAvatar: "boy",
 		overlay: "avatarpicker",
 	};
 });

@@ -4,7 +4,9 @@ import { useAnimationStore } from "bvhecctrl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopOnce } from "three";
 
-export function AvatarAI() {
+export function AvatarCuteHuman({
+	model = `/avatar/human/boy-transformed.glb`,
+}) {
 	const ecctrlActionName = useAnimationStore(
 		(state) => state.animationStatus,
 	);
@@ -12,17 +14,17 @@ export function AvatarAI() {
 	const prevActionNameRef = useRef("IDLE");
 
 	const fbx = {
-		start: useFBX(`/avatar/ai-motion/jump-up.fbx`),
-		loop: useFBX(`/avatar/ai-motion/jump-loop.fbx`),
-		land: useFBX(`/avatar/ai-motion/jump-land.fbx`),
+		start: useFBX(`/avatar/human/human-motion/jump-up.fbx`),
+		loop: useFBX(`/avatar/human/human-motion/falling-idle.fbx`),
+		land: useFBX(`public/avatar/human/human-motion/jump-down.fbx`),
 
 		//
-		idle: useFBX(`/avatar/ai-motion/idle.fbx`),
-		run: useFBX(`/avatar/ai-motion/run.fbx`),
-		walk: useFBX(`/avatar/ai-motion/walk.fbx`),
+		idle: useFBX(`/avatar/human/human-motion/idle.fbx`),
+		run: useFBX(`/avatar/human/human-motion/running.fbx`),
+		walk: useFBX(`/avatar/human/human-motion/walking.fbx`),
 	};
 
-	const glb = useGLTF(`/avatar/fighter-raw-transformed.glb`);
+	const glb = useGLTF(model);
 
 	// glb.scene.traverse((it) => {
 	//   if (it) {

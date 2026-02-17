@@ -28,6 +28,7 @@ export function GamePage() {
 
 	return (
 		<div className="w-full h-full relative">
+			{/* <CanvasGPU webgpu> */}
 			<CanvasGPU webgpu>
 				<Suspense fallback={null}>
 					<Bvh firstHitOnly>
@@ -45,7 +46,7 @@ export function GamePage() {
 								url={`/hdr/default.hdr`}
 							></BloomPipeline>
 
-							<group position={[0, -1.999, 0]}>
+							<group position={[0, -2, 0]}>
 								<Suspense fallback={null}>
 									<Gltf
 										castShadow
@@ -122,15 +123,15 @@ export function GamePage() {
 								></GameSystem>
 							</Suspense>
 
-							<Suspense fallback={null}>
+							{/* <Suspense fallback={null}>
 								<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>
-							</Suspense>
+							</Suspense> */}
 
 							<Suspense fallback={null}>
 								<group>
-									<LookAt>
+									{/* <LookAt>
 										<DiamindComponent></DiamindComponent>
-									</LookAt>
+									</LookAt> */}
 								</group>
 							</Suspense>
 

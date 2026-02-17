@@ -46,6 +46,7 @@ import { MeshPhysicalNodeMaterial } from "three/webgpu";
 import { AvatarLobsterAI } from "./AvatarLobsterAI";
 import copy from "copy-to-clipboard";
 import { ObjectWater } from "./ObjectWater";
+import { AvatarCuteHuman } from "./AvatarCuteHuman";
 // import { findPathByObjects } from './simple-nav'
 // import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
 // import { gsap } from 'gsap'
@@ -124,7 +125,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 		}
 	});
 
-	const chosenLobster = useAppState((r) => r.chosenLobster);
+	const chosenPlayerAvatar = useAppState((r) => r.chosenPlayerAvatar);
 
 	return (
 		<>
@@ -151,8 +152,54 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 								{/* <AvatarRPM></AvatarRPM> */}
 
 								{/*  */}
+								{chosenPlayerAvatar === "school-girl" && (
+									<>
+										<group position={[0, 0.15, 0]}>
+											<Suspense fallback={null}>
+												<AvatarCuteHuman
+													model={`/avatar/human/school-girl-transformed.glb`}
+												></AvatarCuteHuman>
+											</Suspense>
+										</group>
+									</>
+								)}
+								{chosenPlayerAvatar === "school-boy" && (
+									<>
+										<group position={[0, 0.15, 0]}>
+											<Suspense fallback={null}>
+												<AvatarCuteHuman
+													model={`/avatar/human/school-boy-transformed.glb`}
+												></AvatarCuteHuman>
+											</Suspense>
+										</group>
+									</>
+								)}
 
-								{chosenLobster === "army" && (
+								{chosenPlayerAvatar === "girl" && (
+									<>
+										<group position={[0, 0.15, 0]}>
+											<Suspense fallback={null}>
+												<AvatarCuteHuman
+													model={`/avatar/human/girl-transformed.glb`}
+												></AvatarCuteHuman>
+											</Suspense>
+										</group>
+									</>
+								)}
+
+								{chosenPlayerAvatar === "boy" && (
+									<>
+										<group position={[0, 0.15, 0]}>
+											<Suspense fallback={null}>
+												<AvatarCuteHuman
+													model={`/avatar/human/boy-transformed.glb`}
+												></AvatarCuteHuman>
+											</Suspense>
+										</group>
+									</>
+								)}
+
+								{chosenPlayerAvatar === "army" && (
 									<>
 										<group position={[0, 0, 0]}>
 											<AvatarAI></AvatarAI>
@@ -160,24 +207,28 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 									</>
 								)}
 
-								{chosenLobster === "guy" && (
+								{chosenPlayerAvatar === "guy" && (
 									<>
 										<group position={[0, 0.15, 0]}>
-											<AvatarLobsterAI
-												// lobsterURL={`/avatar/lobsters/guy/lobster-mixamo-transformed.glb`}
-												lobsterURL={`/avatar/lobsters/cowboy/mixamo-cowbody-rigged-transformed.glb`}
-												//
-											></AvatarLobsterAI>
+											<Suspense fallback={null}>
+												<AvatarLobsterAI
+													// lobsterURL={`/avatar/lobsters/guy/lobster-mixamo-transformed.glb`}
+													lobsterURL={`/avatar/lobsters/cowboy/mixamo-cowbody-rigged-transformed.glb`}
+													//
+												></AvatarLobsterAI>
+											</Suspense>
 										</group>
 									</>
 								)}
 
-								{chosenLobster === "lady" && (
+								{chosenPlayerAvatar === "lady" && (
 									<>
 										<group position={[0, 0.075, 0]}>
-											<AvatarLobsterAI
-												lobsterURL={`/avatar/lobsters/lady-withdress/lady-mixamo-transformed.glb`}
-											></AvatarLobsterAI>
+											<Suspense fallback={null}>
+												<AvatarLobsterAI
+													lobsterURL={`/avatar/lobsters/lady-withdress/lady-mixamo-transformed.glb`}
+												></AvatarLobsterAI>
+											</Suspense>
 										</group>
 									</>
 								)}
