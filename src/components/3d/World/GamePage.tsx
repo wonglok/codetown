@@ -129,9 +129,9 @@ export function GamePage() {
 
 							<Suspense fallback={null}>
 								<group>
-									{/* <LookAt>
+									<LookAt>
 										<DiamindComponent></DiamindComponent>
-									</LookAt> */}
+									</LookAt>
 								</group>
 							</Suspense>
 

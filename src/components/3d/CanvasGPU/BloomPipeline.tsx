@@ -76,10 +76,10 @@ export function BloomPipeline({
 		object.sunLight.shadow.camera.bottom = -5.123 * 8;
 		object.sunLight.shadow.camera.top = 5.123 * 8;
 
-		object.sunLight.shadow.mapSize.width = 512;
-		object.sunLight.shadow.mapSize.height = 512;
+		object.sunLight.shadow.mapSize.width = 1024;
+		object.sunLight.shadow.mapSize.height = 1024;
 		object.sunLight.shadow.radius = 1;
-		object.sunLight.shadow.bias = -0.00035;
+		object.sunLight.shadow.bias = -0.0005;
 
 		const dirR = new DirectionalLight(0xffffff, 15);
 		dirR.position.set(20, 10, 0);
@@ -99,10 +99,10 @@ export function BloomPipeline({
 		object.moonLight.shadow.camera.bottom = -5.123 * 8;
 		object.moonLight.shadow.camera.top = 5.123 * 8;
 
-		object.moonLight.shadow.mapSize.width = 512;
-		object.moonLight.shadow.mapSize.height = 512;
+		object.moonLight.shadow.mapSize.width = 1024;
+		object.moonLight.shadow.mapSize.height = 1024;
 		object.moonLight.shadow.radius = 1;
-		object.moonLight.shadow.bias = -0.00035;
+		object.moonLight.shadow.bias = -0.0005;
 
 		//
 		object.sunLight.shadow.intensity = 2;
