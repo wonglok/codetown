@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { CorePaths } from "./workpath";
 import { mkdir } from "fs/promises";
+import { setupSocket } from "../socket/socket";
 
 // import { spawn } from "node:child_process";
 // import { JSONFilePreset } from "lowdb/node";
@@ -28,28 +29,11 @@ export async function runServer({ host, port, mode }: any) {
 
 	const { getToolsRouter } = await import("../router/tools");
 
+	//
 	const tools = await getToolsRouter();
-
 	app.use("/api/tools", tools.router);
 
-	if (mode === "production") {
-		app.use("/", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
-	}
-
-	io.of("/chat").on("connection", (socket) => {
-		console.log("a web client connected", socket.id);
-
-		socket.on("greet", (arg) => {
-			console.log(arg);
-		});
-		socket.emit("greet", { hello: socket.id });
-
-		socket.on("disconnect", (reason) => {
-			console.log(`Socket disconnected: ${reason}`);
-		});
-		//
-		//
-	});
+	setupSocket({ io });
 
 	if (mode === "development") {
 		ViteExpress.config({
@@ -61,6 +45,8 @@ export async function runServer({ host, port, mode }: any) {
 			);
 		});
 	} else {
+		app.use("/", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
+
 		console.log(
 			`=============\nServer is online at: http://${host}:${port}\n=============`,
 		);

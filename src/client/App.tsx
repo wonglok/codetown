@@ -19,20 +19,6 @@ import {
 //
 
 function App() {
-	useEffect(() => {
-		const socket = getGenericSocket({ namespace: `/chat` });
-
-		socket.on("greet", (args) => {
-			console.log(args);
-		});
-
-		socket.emit("greet", "yoyo");
-
-		return () => {
-			socket.disconnect();
-		};
-	}, []);
-
 	return (
 		<div className="w-full h-full">
 			<Router>
