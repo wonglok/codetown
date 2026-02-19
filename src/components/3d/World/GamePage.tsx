@@ -6,13 +6,13 @@
 
 import { Suspense, useRef, type ReactNode } from "react";
 import { CanvasGPU } from "../CanvasGPU/CanvasGPU";
-import { Box, Bvh, Center, Environment, Gltf } from "@react-three/drei";
-import { EnvLoader } from "../CanvasGPU/EnvLoader";
+import { Bvh, Box, Center, Environment, Gltf } from "@react-three/drei";
+// import { EnvLoader } from "../CanvasGPU/EnvLoader";
 import { JoystickControls } from "./JoystickControls";
 import { GameSystem } from "./GameSystem";
 import { useAppState } from "./useAppState";
 import { AnimatedLobster } from "../SkinnedMesh/AnimatedLobster";
-import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
+// import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
 import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
 import { BloomPipeline } from "../CanvasGPU/BloomPipeline";
 import { useFrame } from "@react-three/fiber";
