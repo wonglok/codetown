@@ -1,10 +1,16 @@
 import { spawn } from "node:child_process";
 import type { Socket, Server } from "socket.io";
+import { runDemoLoop } from "../lab/learn-loop";
 
 console.log(process.pid);
 
 export const setupSocket = ({ io }: { io: Server }) => {
 	//
+
+	runDemoLoop();
+
+	//
+
 	io.of("/chat").on("connection", (socket) => {
 		//
 
