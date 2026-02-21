@@ -2,9 +2,12 @@ import "./App.css";
 
 // import reactLogo from "./assets/react.svg";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-import { getChatSocket, getGenericSocket } from "./clients/socket";
+// import { getChatSocket, getGenericSocket } from "./clients/socket";
+
+//
+
 import { GamePage } from "../components/3d/World/GamePage";
 
 import {
@@ -16,11 +19,17 @@ import {
 	useParams,
 } from "react-router-dom";
 
+import "nprogress/nprogress.css";
+import { LMStudioModelManager } from "./adapter/LMStudioModelManager";
+import { LMStudioModelManagerTwo } from "./adapter/LMStudioModelManagerTwo";
+
 //
 
 function App() {
 	return (
 		<div className="w-full h-full">
+			{/* <LMStudioModelManager /> */}
+			<LMStudioModelManagerTwo></LMStudioModelManagerTwo>
 			<Router>
 				<>
 					<Switch>

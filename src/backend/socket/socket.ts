@@ -1,13 +1,13 @@
 import { spawn } from "node:child_process";
 import type { Socket, Server } from "socket.io";
-import { runDemoLoop } from "../lab/learn-loop";
+// import { runDemoLoop } from "../lab/learn-loop-openai";
 
 console.log(process.pid);
 
 export const setupSocket = ({ io }: { io: Server }) => {
 	//
 
-	runDemoLoop();
+	// runDemoLoop();
 
 	//
 
