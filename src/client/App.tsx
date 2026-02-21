@@ -20,8 +20,6 @@ import {
 } from "react-router-dom";
 
 import "nprogress/nprogress.css";
-import { LMStudioModelManager } from "./adapter/LMStudioModelManager";
-import { LMStudioModelManagerTwo } from "./adapter/LMStudioModelManagerTwo";
 
 //
 
@@ -29,7 +27,6 @@ function App() {
 	return (
 		<div className="w-full h-full">
 			{/* <LMStudioModelManager /> */}
-			<LMStudioModelManagerTwo></LMStudioModelManagerTwo>
 			<Router>
 				<>
 					<Switch>
