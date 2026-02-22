@@ -16,7 +16,7 @@ export function AvatarCuteHuman({
 	const fbx = {
 		start: useFBX(`/avatar/human/human-motion/jump-up.fbx`),
 		loop: useFBX(`/avatar/human/human-motion/falling-idle.fbx`),
-		land: useFBX(`public/avatar/human/human-motion/jump-down.fbx`),
+		land: useFBX(`/avatar/human/human-motion/jump-down.fbx`),
 
 		//
 		idle: useFBX(`/avatar/human/human-motion/idle.fbx`),

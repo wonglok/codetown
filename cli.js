@@ -9,7 +9,7 @@ Usage
 
 Options
 	--port  web port  [Default: 8077]
-	--host  host  [Default: localhost]
+	--host  host  [Default: 0.0.0.0]
 
 Examples
 	$ codetown
@@ -25,7 +25,7 @@ Examples
 			},
 			host: {
 				type: "string",
-				default: "localhost",
+				default: "0.0.0.0",
 			},
 		},
 	},
@@ -35,7 +35,7 @@ Examples
 import('./src/backend/core/runServer').then(({ runServer }) => {
 	runServer({
 		port: `${cli.flags.port || 8077}`,
-		host: `${cli.flags.host || 'localhost'}`,
+		host: `${cli.flags.host || '0.0.0.0'}`,
 		mode: process.env.NODE_ENV === 'development' ? "development" : "production",
 	});
 })

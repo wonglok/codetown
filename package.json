@@ -18,7 +18,7 @@
 	"scripts": {
 		"docker": "docker compose up --build",
 		"deploy": "npm run build; npm publish --access public",
-		"start": "npx vite build; NODE_ENV=production node ./cli.js",
+		"start": "npx vite build; NODE_ENV=production node ./cli.js --host 0.0.0.0",
 		"build": "NODE_ENV=production npx vite build; npx bump; ",
 		"dev": "NODE_ENV=development npx nodemon ./cli.js --watch ./src",
 		"test": "node ./cli.js"
