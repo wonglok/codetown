@@ -45,7 +45,7 @@ export async function runServer({ host, port, mode }: any) {
 			);
 		});
 	} else {
-		app.use("/", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
+		app.use("/*", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
 
 		console.log(
 			`=============\nServer is online at: http://${host}:${port}\n=============`,
