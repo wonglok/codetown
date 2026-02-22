@@ -1,10 +1,11 @@
 // LMStudioManager.tsx
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, type ReactNode } from "react";
 import { LMStudioSDK, type ModelInfo, type ModelStatus } from "./LMStudioSDK";
 
 interface LMStudioManagerProps {
 	baseURL?: string;
 	authToken?: string;
+	showOK?: ReactNode;
 }
 
 const DEFAULT_MODELS = [
@@ -112,6 +113,7 @@ const StatusBadge: React.FC<{ status: ModelStatus; progress?: number }> = ({
 export const LMStudioManager: React.FC<LMStudioManagerProps> = ({
 	baseURL = "http://localhost:1234",
 	authToken,
+	showOK = null,
 }) => {
 	const [sdk] = useState(() => new LMStudioSDK(baseURL, authToken));
 	const [models, setModels] = useState<ModelInfo[]>([]);
@@ -295,6 +297,10 @@ export const LMStudioManager: React.FC<LMStudioManagerProps> = ({
 				return null;
 		}
 	};
+
+	if (prepareStatus === "done") {
+		return showOK;
+	}
 
 	return (
 		<div
