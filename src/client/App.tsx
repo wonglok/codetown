@@ -21,14 +21,14 @@ import {
 
 import "nprogress/nprogress.css";
 
-//
+import { LMStudioManager } from "./adapter/LMStudioManager";
 
 function App() {
 	return (
 		<div className="w-full h-full">
-			{/* <LMStudioModelManager /> */}
 			<Router>
 				<>
+					<LMStudioManager></LMStudioManager>
 					<Switch>
 						<Route path="/app">
 							<GamePage></GamePage>
