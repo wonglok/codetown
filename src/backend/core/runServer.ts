@@ -43,12 +43,18 @@ export async function runServer({ host, port, mode }: any) {
 			console.log(
 				`=============\nVite is online at: http://${host}:${port}\n=============`,
 			);
+			console.log(
+				`=============\nVite is online at: http://localhost:${port}\n=============`,
+			);
 		});
 	} else {
 		app.use("/*", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
 
 		console.log(
 			`=============\nServer is online at: http://${host}:${port}\n=============`,
+		);
+		console.log(
+			`=============\nServer is online at: http://localhost:${port}\n=============`,
 		);
 	}
 

@@ -17,8 +17,7 @@
 	},
 	"scripts": {
 		"docker": "docker compose up --build",
-		"docker:build": "docker compose build",
-		"docker:publish": "docker tag codetown-pod:latest wonglok831/effectnode-pod:latest; docker push wonglok831/effectnode-pod:latest;",
+		"docker:publish": "docker compose build; docker tag codetown-pod:latest wonglok831/effectnode-pod:latest; docker push wonglok831/effectnode-pod:latest;",
 		"deploy": "npm run build; npm publish --access public",
 		"start": "npx vite build; NODE_ENV=production node ./cli.js --host 0.0.0.0",
 		"build": "NODE_ENV=production npx vite build; npx bump; ",
