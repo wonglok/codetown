@@ -34,7 +34,7 @@ function App() {
 								<Link to="/">Home</Link>
 							</li>
 							<li>
-								<Link to="/ai">Settings</Link>
+								<Link to="/ai-settings">AI Settings</Link>
 							</li>
 							{/* <li>
 								<Link to="/topics">Topics</Link>
@@ -43,12 +43,14 @@ function App() {
 					</nav>
 
 					<Switch>
-						<Route path="/ai">
-							<LMStudioManager></LMStudioManager>
-						</Route>
 						<Route path="/topics">
 							<Topics></Topics>
 						</Route>
+
+						<Route path="/ai-settings">
+							<LMStudioManager></LMStudioManager>
+						</Route>
+
 						<Route path="/">
 							<LMStudioManager
 								showOK={<GamePage></GamePage>}
