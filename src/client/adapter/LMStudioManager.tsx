@@ -120,7 +120,6 @@ export const LMStudioManager: React.FC<LMStudioManagerProps> = ({
 	const [prepareStatus, setPrepareStatus] = useState("idle");
 	const [error, setError] = useState<string | null>(null);
 
-	// Fetch current status of all models
 	const refreshStatus = useCallback(async () => {
 		try {
 			setModels([]);
@@ -298,7 +297,7 @@ export const LMStudioManager: React.FC<LMStudioManagerProps> = ({
 		}
 	};
 
-	if (prepareStatus === "done") {
+	if (showOK && prepareStatus === "done") {
 		return showOK;
 	}
 

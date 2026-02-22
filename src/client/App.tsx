@@ -28,33 +28,33 @@ function App() {
 		<div className="w-full h-full">
 			<Router>
 				<>
-					<LMStudioManager
-						showOK={
-							<Switch>
-								<Route path="/app">
-									<GamePage></GamePage>
-								</Route>
-								<Route path="/topics">
-									<Topics></Topics>
-								</Route>
-								<Route path="/">
-									<nav>
-										<ul>
-											<li>
-												<Link to="/">Home</Link>
-											</li>
-											<li>
-												<Link to="/app">App</Link>
-											</li>
-											<li>
-												<Link to="/topics">Topics</Link>
-											</li>
-										</ul>
-									</nav>
-								</Route>
-							</Switch>
-						}
-					></LMStudioManager>
+					<nav className=" fixed z-20 top-0 left-0 bg-white p-3 m-3">
+						<ul>
+							<li>
+								<Link to="/">Home</Link>
+							</li>
+							<li>
+								<Link to="/ai">Settings</Link>
+							</li>
+							{/* <li>
+								<Link to="/topics">Topics</Link>
+							</li> */}
+						</ul>
+					</nav>
+
+					<Switch>
+						<Route path="/ai">
+							<LMStudioManager></LMStudioManager>
+						</Route>
+						<Route path="/topics">
+							<Topics></Topics>
+						</Route>
+						<Route path="/">
+							<LMStudioManager
+								showOK={<GamePage></GamePage>}
+							></LMStudioManager>
+						</Route>
+					</Switch>
 				</>
 			</Router>
 		</div>
