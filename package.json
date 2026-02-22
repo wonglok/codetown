@@ -16,10 +16,11 @@
 		"node": ">=20"
 	},
 	"scripts": {
+		"docker": "docker compose up --build",
 		"deploy": "npm run build; npm publish --access public",
-		"start": "vite build; NODE_ENV=production node ./cli.js",
-		"build": "NODE_ENV=production vite build; npx bump; ",
-		"dev": "NODE_ENV=development nodemon ./cli.js --watch ./src",
+		"start": "npx vite build; NODE_ENV=production node ./cli.js",
+		"build": "NODE_ENV=production npx vite build; npx bump; ",
+		"dev": "NODE_ENV=development npx nodemon ./cli.js --watch ./src",
 		"test": "node ./cli.js"
 	},
 	"files": [
@@ -69,16 +70,16 @@
 		"tslib": "^2.8.1",
 		"tsx": "^4.19.3",
 		"typescript": "^5.8.3",
-		"vite": "^6.3.3",
-		"vite-express": "*",
 		"zod": "^4.3.6",
-		"zustand": "^5.0.11"
+		"zustand": "^5.0.11",
+		"@vitejs/plugin-react": "^4.4.1",
+		"vite": "^6.3.3",
+		"vite-express": "*"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.1",
 		"@types/node": "^25.3.0",
 		"@types/react": "^19.1.2",
-		"@types/react-dom": "^19.1.2",
-		"@vitejs/plugin-react": "^4.4.1"
+		"@types/react-dom": "^19.1.2"
 	}
 }
