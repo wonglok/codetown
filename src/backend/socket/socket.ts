@@ -5,11 +5,7 @@ import type { Socket, Server } from "socket.io";
 console.log(process.pid);
 
 export const setupSocket = ({ io }: { io: Server }) => {
-	//
-
 	// runDemoLoop();
-
-	//
 
 	io.of("/chat").on("connection", (socket) => {
 		//

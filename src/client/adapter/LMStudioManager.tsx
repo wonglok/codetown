@@ -10,9 +10,9 @@ interface LMStudioManagerProps {
 
 const DEFAULT_MODELS = [
 	{
-		id: "nvidia/nemotron-3-nano",
-		desc: "Smart AI Model",
-		name: "Nemotron 3 Nano",
+		id: "qwen/qwen3.5-35b-a3b",
+		desc: "Qwen 3.5 35B A3B",
+		name: "Qwen 3.5 35B A3B",
 		type: "Smart",
 	},
 
