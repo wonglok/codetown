@@ -22,13 +22,14 @@ import {
 import "nprogress/nprogress.css";
 
 import { LMStudioManager } from "./adapter/LMStudioManager";
+import { ClaudeCode } from "../components/2d/ClaudeCode/ClaudeCode";
 
 function App() {
 	return (
 		<div className="w-full h-full">
 			<Router>
 				<>
-					<nav className=" fixed z-20 top-0 left-0 bg-white p-3 m-3">
+					<nav className=" fixed z-20 top-0 right-0 bg-gray-200 p-3 m-3">
 						<ul>
 							<li>
 								<Link to="/">Home</Link>
@@ -36,9 +37,6 @@ function App() {
 							<li>
 								<Link to="/ai-settings">AI Settings</Link>
 							</li>
-							{/* <li>
-								<Link to="/topics">Topics</Link>
-							</li> */}
 						</ul>
 					</nav>
 
@@ -51,10 +49,13 @@ function App() {
 							<LMStudioManager></LMStudioManager>
 						</Route>
 
-						<Route path="/">
+						<Route path="/game">
 							<LMStudioManager
 								showOK={<GamePage></GamePage>}
 							></LMStudioManager>
+						</Route>
+						<Route path="/">
+							<ClaudeCode></ClaudeCode>
 						</Route>
 					</Switch>
 				</>

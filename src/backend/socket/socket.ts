@@ -1,13 +1,13 @@
-import { spawn } from "node:child_process";
+import { exec } from "child_process";
 import type { Socket, Server } from "socket.io";
 // import { runDemoLoop } from "../lab/learn-loop-openai";
 
-console.log(process.pid);
+// console.log(process.pid);
 
 export const setupSocket = ({ io }: { io: Server }) => {
 	// runDemoLoop();
 
-	io.of("/chat").on("connection", (socket) => {
+	io.of("/code").on("connection", (socket) => {
 		//
 
 		console.log("a web client connected", socket.id);
@@ -21,38 +21,51 @@ export const setupSocket = ({ io }: { io: Server }) => {
 			console.log(`Socket disconnected: ${reason}`);
 		});
 
-		// socket.on("ai-tool", (rootEvent) => {
-		// 	//
-		// 	const child = spawn("npx", [rootEvent.tool, rootEvent.prompt]);
-		// 	// Listen for stdout data events
-		// 	child.stdout.on("data", (data) => {
-		// 		console.log(`stdout: ${data.toString()}`);
-		// 		socket.emit("ai-tool-data", {
-		// 			session: rootEvent.sessionID,
-		// 			text: data.toString(),
-		// 		});
-		// 	});
-		// 	// Listen for stderr data events
-		// 	child.stderr.on("data", (data) => {
-		// 		console.error(`stderr: ${data.toString()}`);
-		// 		socket.emit("ai-tool-error", {
-		// 			session: rootEvent.sessionID,
-		// 			text: data.toString(),
-		// 		});
-		// 	});
-		// 	// Listen for the process closing event
-		// 	child.on("close", (code) => {
-		// 		console.log(`child process exited with code ${code}`);
-		// 		socket.emit("ai-tool-close", {
-		// 			session: rootEvent.sessionID,
-		// 			text: `${code}`,
-		// 		});
-		// 	});
-		// 	// Listen for the process error event (e.g., if the command is not found)
-		// 	child.on("error", (err) => {
-		// 		console.error("Failed to start child process:", err);
-		// 	});
-		// 	//
-		// });
+		socket.on("ai-tool", async (rootEvent) => {
+			console.log(rootEvent);
+
+			const abortController = new AbortController();
+
+			//
+			const child = await exec("", {
+				cwd: process.cwd(),
+				signal: abortController.signal,
+				env: {
+					ANTHROPIC_AUTH_TOKEN: `lmstudio`,
+					ANTHROPIC_API_KEY: "na",
+					ANTHROPIC_BASE_URL: "http://localohst:1234",
+				},
+			});
+
+			// Listen for stdout data events
+			child.stdout!.on("data", (data) => {
+				console.log(`stdout: ${data.toString()}`);
+				socket.emit("ai-tool-data", {
+					session: rootEvent.sessionID,
+					text: data.toString(),
+				});
+			});
+			// Listen for stderr data events
+			child.stderr!.on("data", (data) => {
+				console.error(`stderr: ${data.toString()}`);
+				socket.emit("ai-tool-error", {
+					session: rootEvent.sessionID,
+					text: data.toString(),
+				});
+			});
+			// Listen for the process closing event
+			child.on("close", (code) => {
+				console.log(`child process exited with code ${code}`);
+				socket.emit("ai-tool-close", {
+					session: rootEvent.sessionID,
+					text: `${code}`,
+				});
+			});
+			// Listen for the process error event (e.g., if the command is not found)
+			child.on("error", (err) => {
+				console.error("Failed to start child process:", err);
+			});
+			//
+		});
 	});
 };

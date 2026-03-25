@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
-import { getGenericSocket } from "../clients/socket";
+import { getGenericSocket } from "../../client/clients/socket";
 import type { Socket } from "socket.io-client";
 
-export function useChatSocket() {
-	const [state, setState] = useState("connecting");
+export function useSocket() {
+	const [status, setStatus] = useState("connecting");
 	const [socket, setSocket] = useState<boolean | Socket>(false);
 	useEffect(() => {
-		const socket = getGenericSocket({ namespace: `/chat` });
+		const socket = getGenericSocket({ namespace: `/claude` });
+
 		setSocket(socket);
 
-		socket.on("connection", () => {
-			setState("ready");
+		socket.on("ready", () => {
+			setStatus("ready");
 		});
 
 		socket.on("greet", (args) => {
 			console.log(args);
 		});
-
-		socket.emit("greet", "yoyo");
 
 		return () => {
 			socket.disconnect();
@@ -25,7 +24,7 @@ export function useChatSocket() {
 	}, []);
 
 	return {
-		state,
+		status,
 		socket,
 	};
 }
