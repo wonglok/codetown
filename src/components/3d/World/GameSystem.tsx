@@ -4,7 +4,7 @@ import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 // //
 // const meshes: Mesh[] = []
-import gsap from "gsap";
+// import gsap from "gsap";
 import {
 	CameraControls,
 	KeyboardControls,
@@ -64,6 +64,7 @@ import {
 	vec4,
 } from "three/tsl";
 import { Pulse } from "./Pulse";
+// import { Armor } from "./Armor/Armor";
 // import { findPathByObjects } from './simple-nav'
 // import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
 // import { gsap } from 'gsap'
@@ -169,6 +170,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 								{/* <AvatarRPM></AvatarRPM> */}
 
 								{/*  */}
+
 								{chosenPlayerAvatar === "school-girl" && (
 									<>
 										<group position={[0, 0.15, 0]}>
@@ -215,6 +217,12 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 										</group>
 									</>
 								)}
+
+								{/* <group position={[0, 0.0, 0]}>
+									<Suspense fallback={null}>
+										<Armor></Armor>
+									</Suspense>
+								</group> */}
 
 								{/* {chosenPlayerAvatar === "army" && (
 									<>
