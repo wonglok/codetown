@@ -52,7 +52,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				outer.value = 0;
 				gsap.to(brightness, {
 					value: 15,
-					duration: duration,
+					duration: 0.1,
 					ease: "power2.inOut",
 					onUpdate: () => {},
 					onStart: () => {},
@@ -60,8 +60,8 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				});
 
 				await gsap.to(outer, {
-					value: 10.0,
-					duration: duration,
+					value: 3.0,
+					duration: 1.0,
 					delay: delay,
 					ease: "power2.inOut",
 					onUpdate: () => {},
@@ -71,7 +71,8 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 
 				await gsap.to(brightness, {
 					value: 0,
-					duration: 0.3,
+					delay: 0.33,
+					duration: 1,
 					ease: "power2.inOut",
 					onUpdate: () => {},
 					onStart: () => {},
@@ -197,7 +198,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 						//
 					}
 				},
-				(1000 / list.length) * 1,
+				(1000 / list.length) * 5,
 			);
 
 			return emissiveNode;
