@@ -50,9 +50,9 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 
 				brightness.value = 0;
 				outer.value = 0;
-				await gsap.to(brightness, {
-					value: 5,
-					duration: 0.1,
+				gsap.to(brightness, {
+					value: 20,
+					duration: duration,
 					ease: "power2.inOut",
 					onUpdate: () => {},
 					onStart: () => {},
@@ -60,7 +60,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				});
 
 				await gsap.to(outer, {
-					value: 1.0,
+					value: 2.0,
 					duration: duration,
 					delay: delay,
 					ease: "power2.inOut",
@@ -86,7 +86,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				const base = "#000000";
 				const colorOut = color(base).toVar();
 
-				const dist = playerPos.xz.sub(positionWorld.xz).length();
+				const dist = playerPos.xyz.sub(positionWorld.xyz).length();
 
 				If(bool(false), () => {})
 					.ElseIf(
@@ -94,7 +94,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 							.lessThanEqual(outer)
 							.and(dist.greaterThanEqual(outer.sub(thickness))),
 						() => {
-							const greenCol = color("#5eff42");
+							const greenCol = color("#29ffd1");
 							const baseCol = color(base);
 							const diff = dist.sub(outer.sub(thickness));
 							const outfade = diff.div(thickness);
@@ -137,44 +137,34 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 
 			const list = [
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 				getEmissiveNode({
-					duration: 1,
-					delay: 0,
+					duration: 1.5,
 				}),
 			];
 
@@ -202,7 +192,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 		setEmissiveNode(emissiveNode);
 
 		return () => {
-			setEmissiveNode(color("#00000"));
+			setEmissiveNode(color("#000000"));
 		};
 	}, [emissiveNode]);
 
