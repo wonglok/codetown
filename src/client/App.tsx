@@ -17,6 +17,7 @@ import {
 	Link,
 	useRouteMatch,
 	useParams,
+	Redirect,
 } from "react-router-dom";
 
 import "nprogress/nprogress.css";
@@ -49,13 +50,16 @@ function App() {
 							<LMStudioManager></LMStudioManager>
 						</Route>
 
-						<Route path="/game">
-							<LMStudioManager
-								showOK={<GamePage></GamePage>}
-							></LMStudioManager>
-						</Route>
-						<Route path="/">
+						<Route path="/code">
 							<ClaudeCode></ClaudeCode>
+						</Route>
+
+						<Route path="/home">
+							<GamePage></GamePage>
+						</Route>
+
+						<Route path="/">
+							<Redirect to={"/home"}></Redirect>
 						</Route>
 					</Switch>
 				</>

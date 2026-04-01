@@ -8,7 +8,7 @@ import {
 	Object3D,
 	UnsignedByteType,
 } from "three";
-import { PostProcessing, SRGBColorSpace } from "three/webgpu";
+import { RenderPipeline, SRGBColorSpace } from "three/webgpu";
 import {
 	pass,
 	mrt,
@@ -71,10 +71,10 @@ export function BloomPipeline({
 		object.sunLight.shadow.camera.near = 0;
 		object.sunLight.shadow.camera.far = 150 * 2;
 
-		object.sunLight.shadow.camera.left = -5.123 * 8;
-		object.sunLight.shadow.camera.right = 5.123 * 8;
-		object.sunLight.shadow.camera.bottom = -5.123 * 8;
-		object.sunLight.shadow.camera.top = 5.123 * 8;
+		object.sunLight.shadow.camera.left = -5.0 * 6.5;
+		object.sunLight.shadow.camera.right = 5.0 * 6.5;
+		object.sunLight.shadow.camera.bottom = -5.0 * 6.5;
+		object.sunLight.shadow.camera.top = 5.0 * 6.5;
 
 		object.sunLight.shadow.mapSize.width = 1024;
 		object.sunLight.shadow.mapSize.height = 1024;
@@ -94,10 +94,10 @@ export function BloomPipeline({
 		object.moonLight.shadow.camera.near = 0;
 		object.moonLight.shadow.camera.far = 150 * 2;
 
-		object.moonLight.shadow.camera.left = -5.123 * 8;
-		object.moonLight.shadow.camera.right = 5.123 * 8;
-		object.moonLight.shadow.camera.bottom = -5.123 * 8;
-		object.moonLight.shadow.camera.top = 5.123 * 8;
+		object.moonLight.shadow.camera.left = -5.0 * 6.5;
+		object.moonLight.shadow.camera.right = 5.0 * 6.5;
+		object.moonLight.shadow.camera.bottom = -5.0 * 6.5;
+		object.moonLight.shadow.camera.top = 5.0 * 6.5;
 
 		object.moonLight.shadow.mapSize.width = 1024;
 		object.moonLight.shadow.mapSize.height = 1024;
@@ -195,11 +195,11 @@ export function BloomPipeline({
 
 		const bloomPass = bloom(scenePassColor, 0.1, 1.0, 0.95);
 
-		const postProcessing = new PostProcessing(renderer as any);
+		const postProcessing = new RenderPipeline(renderer as any);
 		// .add(ssrPass)
 		const aaColor = fxaa(scenePassColor);
 
-		postProcessing.outputNode = add(aaColor, bloomPass.mul(1.0));
+		postProcessing.outputNode = add(vec4(aaColor), bloomPass.mul(1.0));
 
 		postProcessing.needsUpdate = true;
 

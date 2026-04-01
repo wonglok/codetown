@@ -4,19 +4,19 @@
 
 // import { Joystick, VirtualButton } from 'bvhecctrl'
 
-import { Suspense, useRef, type ReactNode } from "react";
+import { Suspense } from "react"; // useRef, type ReactNode
 import { CanvasGPU } from "../CanvasGPU/CanvasGPU";
-import { Bvh, Box, Center, Environment, Gltf } from "@react-three/drei";
+import { Bvh } from "@react-three/drei"; // Box, Center, Environment, Gltf
 // import { EnvLoader } from "../CanvasGPU/EnvLoader";
 import { JoystickControls } from "./JoystickControls";
 import { GameSystem } from "./GameSystem";
 import { useAppState } from "./useAppState";
-import { AnimatedLobster } from "../SkinnedMesh/AnimatedLobster";
+// import { AnimatedLobster } from "../SkinnedMesh/AnimatedLobster";
 // import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
-import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
+// import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
 import { BloomPipeline } from "../CanvasGPU/BloomPipeline";
-import { useFrame } from "@react-three/fiber";
-import { Group } from "three";
+// import { useFrame } from "@react-three/fiber";
+// import { Group } from "three";
 // import { SkinedMeshEffect } from '../../SkinnedMesh/SkinedMeshEffect'
 // import { SkinedMeshAnimatedGLB } from '../../SkinnedMesh/SkinedMeshAnimatedGLB'
 // import { AnimatedLobster } from "../../SkinnedMesh/AnimatedLobster";
@@ -46,14 +46,14 @@ export function GamePage() {
 								url={`/hdr/default.hdr`}
 							></BloomPipeline>
 
-							<group position={[0, -2, 0]}>
+							{/* <group position={[0, -2, 0]}>
 								<Suspense fallback={null}>
 									<Gltf
 										castShadow
 										src={`/avatar/lobsters/others/lobsterland-transformed.glb`}
 									></Gltf>
 								</Suspense>
-							</group>
+							</group> */}
 
 							{/*  */}
 
@@ -62,7 +62,7 @@ export function GamePage() {
                 glbURL={`/avatar/lobsters/chef/mixa-lobster-transformed.glb`}
               ></SkinedMeshAnimatedGLB> */}
 
-							<group
+							{/* <group
 								name="near-water-r"
 								scale={5}
 								position={[
@@ -115,7 +115,7 @@ export function GamePage() {
 										fbxURL={`/avatar/lobsters/chef/motion/happy-state.fbx`}
 									></AnimatedLobster>
 								</Suspense>
-							</group>
+							</group> */}
 
 							<Suspense fallback={null}>
 								<GameSystem
@@ -129,9 +129,9 @@ export function GamePage() {
 
 							<Suspense fallback={null}>
 								<group>
-									<LookAt>
+									{/* <Spinner>
 										<DiamindComponent></DiamindComponent>
-									</LookAt>
+									</Spinner> */}
 								</group>
 							</Suspense>
 
@@ -146,15 +146,15 @@ export function GamePage() {
 	);
 }
 
-function LookAt({ children }: { children: ReactNode }) {
-	const ref = useRef<Group>(null);
+// function Spinner({ children }: { children: ReactNode }) {
+// 	const ref = useRef<Group>(null);
 
-	useFrame((st, dt) => {
-		if (ref.current) {
-			ref.current.rotation.y += dt * 0.125;
-		}
-	});
+// 	useFrame((st, dt) => {
+// 		if (ref.current) {
+// 			ref.current.rotation.y += dt * 0.125;
+// 		}
+// 	});
 
-	return <group ref={ref}>{children}</group>;
-}
+// 	return <group ref={ref}>{children}</group>;
+// }
 //

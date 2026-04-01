@@ -24,47 +24,8 @@ export const setupSocket = ({ io }: { io: Server }) => {
 		socket.on("ai-tool", async (rootEvent) => {
 			console.log(rootEvent);
 
-			const abortController = new AbortController();
-
 			//
-			const child = await exec("", {
-				cwd: process.cwd(),
-				signal: abortController.signal,
-				env: {
-					ANTHROPIC_AUTH_TOKEN: `lmstudio`,
-					ANTHROPIC_API_KEY: "na",
-					ANTHROPIC_BASE_URL: "http://localohst:1234",
-				},
-			});
-
-			// Listen for stdout data events
-			child.stdout!.on("data", (data) => {
-				console.log(`stdout: ${data.toString()}`);
-				socket.emit("ai-tool-data", {
-					session: rootEvent.sessionID,
-					text: data.toString(),
-				});
-			});
-			// Listen for stderr data events
-			child.stderr!.on("data", (data) => {
-				console.error(`stderr: ${data.toString()}`);
-				socket.emit("ai-tool-error", {
-					session: rootEvent.sessionID,
-					text: data.toString(),
-				});
-			});
-			// Listen for the process closing event
-			child.on("close", (code) => {
-				console.log(`child process exited with code ${code}`);
-				socket.emit("ai-tool-close", {
-					session: rootEvent.sessionID,
-					text: `${code}`,
-				});
-			});
-			// Listen for the process error event (e.g., if the command is not found)
-			child.on("error", (err) => {
-				console.error("Failed to start child process:", err);
-			});
+			//
 			//
 		});
 	});

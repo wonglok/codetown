@@ -1,4 +1,5 @@
 import express from "express";
+import * as EXP from "express";
 import ViteExpress from "vite-express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -32,6 +33,7 @@ export async function runServer({ host, port, mode }: any) {
 
 	//
 	const { router } = await getToolsRouter();
+
 	app.use("/api/tools", router);
 
 	setupSocket({ io });
@@ -49,7 +51,11 @@ export async function runServer({ host, port, mode }: any) {
 			);
 		});
 	} else {
-		app.use("/*", express.static(join(__dirname, "../../../dist"))); // 'public' is folder name
+		setTimeout(() => {
+			exec(`open http://localhost:${port}`);
+		}, 1000);
+
+		app.use(EXP.static(join(__dirname, "../../../dist"))); // 'public' is folder name
 
 		console.log(
 			`=============\nServer is online at: http://${host}:${port}\n=============`,
@@ -59,9 +65,6 @@ export async function runServer({ host, port, mode }: any) {
 		);
 	}
 
-	setTimeout(() => {
-		exec(`open http://localhost:${port}`);
-	});
 	server.listen(port, host, () => {});
 }
 
