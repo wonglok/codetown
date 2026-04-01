@@ -49,8 +49,10 @@ import copy from "copy-to-clipboard";
 import { ObjectWater } from "./ObjectWater";
 import { AvatarCuteHuman } from "./AvatarCuteHuman";
 import {
+	abs,
 	bool,
 	color,
+	float,
 	Fn,
 	If,
 	mix,
@@ -61,6 +63,7 @@ import {
 	vec3,
 	vec4,
 } from "three/tsl";
+import { Pulse } from "./Pulse";
 // import { findPathByObjects } from './simple-nav'
 // import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
 // import { gsap } from 'gsap'
@@ -289,20 +292,6 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 // { "tool": "exec", "command": "sleep 5 && echo done", "yieldMs": 1000 }
 
 function ContentGL({ glbSRC }: { glbSRC: string }) {
-	const scene = useThree((r) => r.scene);
-	const tasks: any[] = useMemo(() => {
-		return [];
-	}, []);
-	useFrame((_, dt) => {
-		tasks.forEach((ts) => ts(_, dt));
-	});
-	const onLoop = useCallback(
-		(fnc: any) => {
-			tasks.push(fnc);
-		},
-		[tasks],
-	);
-
 	const glb = useGLTF(glbSRC) as any;
 
 	const cloned = useMemo(() => {
@@ -316,6 +305,13 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 	}, [cloned.uuid]);
 
 	const { nodes, materials } = glb;
+
+	const [colorNode, setColorNode] = useState(() => {
+		return vec4(color("#fbf8d3"));
+	});
+	const [emissiveNode, setEmissiveNode] = useState(() => {
+		return vec4(0.0);
+	});
 
 	// console.log(materials)
 
@@ -339,75 +335,22 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 			});
 		},
 	);
-	const colorNode = useMemo(() => {
-		const mainPlayer = new Object3D();
-		const playerPos = uniform(mainPlayer.position);
-		onLoop(() => {
-			//
-			let player = scene.getObjectByName("main-player");
-			if (player) {
-				player.getWorldPosition(mainPlayer.position);
-			}
-		});
-
-		return Fn(() => {
-			//
-			let colorOut = color("#fbf8d3").toVar();
-
-			// const plaza = texture(materials.Inner_plaza.map, uv());
-			// colorOut.assign(plaza);
-
-			let dist = playerPos.xz.sub(positionWorld.xz).length();
-
-			const outer = uniform(2.5);
-			const thickness = uniform(0.5);
-
-			outer.value = 0;
-			gsap.to(outer, {
-				value: 200,
-				duration: 200 / 50,
-				delay: 0,
-				repeat: Infinity,
-				ease: "power2.inOut",
-				onUpdate: () => {
-					thickness.value = 2;
-				},
-			});
-
-			If(bool(false), () => {})
-				.ElseIf(
-					dist
-						.lessThanEqual(outer)
-						.and(dist.greaterThanEqual(outer.sub(thickness))),
-					() => {
-						colorOut.assign(color("#26ff00"));
-					},
-				)
-				.Else(() => {
-					//
-					// colorOut.assign(color(materials.Inner_plaza.color));
-					//
-				});
-
-			return colorOut;
-		})();
-	}, []);
 
 	const mat = useMemo(() => {
 		const val = new MeshPhysicalNodeMaterial();
 
 		val.setValues({
 			map: materials.Inner_plaza.map,
-			metalness: 0.7,
+			metalness: 0.65,
 			roughness: 0.25,
 			metalnessMap: textProps.normalMap,
 			normalMap: textProps.normalMap,
-			normalScale: new Vector2(3.5, 3.5),
-			colorNode: colorNode,
+			normalScale: new Vector2(2.5, 2.5),
+			emissiveNode: emissiveNode,
 		});
 
 		return val;
-	}, [textProps, scene]);
+	}, [textProps]);
 
 	const wall = useMemo(() => {
 		const val = new MeshPhysicalNodeMaterial({});
@@ -419,7 +362,7 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 			metalnessMap: textProps.normalMap,
 			normalMap: textProps.normalMap,
 			normalScale: new Vector2(1, 1),
-			colorNode: colorNode,
+			emissiveNode: emissiveNode,
 		});
 
 		return val;
@@ -446,7 +389,7 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 		val.setValues({
 			color: new Color("#000"),
 			emissive: new Color("#ff923f"),
-			emissiveIntensity: 5.0,
+			emissiveIntensity: 3,
 			metalness: 0,
 		});
 
@@ -455,6 +398,10 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 
 	return (
 		<group dispose={null} position={[0, -2, 0]}>
+			<Pulse
+				setColorNode={setColorNode}
+				setEmissiveNode={setEmissiveNode}
+			></Pulse>
 			<mesh
 				castShadow
 				receiveShadow

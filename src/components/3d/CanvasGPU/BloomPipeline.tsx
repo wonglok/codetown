@@ -58,7 +58,7 @@ export function BloomPipeline({
 	useEffect(() => {
 		const object: any = new Object3D();
 
-		const dirL = new DirectionalLight(0xffffff, 15);
+		const dirL = new DirectionalLight(0xffffff, 1);
 		dirL.position.set(-20, 10, 0);
 
 		object.sunLight = dirL;
@@ -81,7 +81,7 @@ export function BloomPipeline({
 		object.sunLight.shadow.radius = 1;
 		object.sunLight.shadow.bias = -0.0005;
 
-		const dirR = new DirectionalLight(0xffffff, 15);
+		const dirR = new DirectionalLight(0xffffff, 1);
 		dirR.position.set(20, 10, 0);
 
 		object.moonLight = dirR;
@@ -106,11 +106,11 @@ export function BloomPipeline({
 
 		//
 		object.sunLight.shadow.intensity = 2;
-		object.sunLight.intensity = 1.5;
+		object.sunLight.intensity = 0.5;
 		object.moonLight.shadow.intensity = 2;
-		object.moonLight.intensity = 1.5;
+		object.moonLight.intensity = 0.5;
 
-		scene.environmentIntensity = 0.5;
+		scene.environmentIntensity = 0.45;
 
 		const scenePass = pass(scene, camera);
 		scenePass.setMRT(
@@ -193,7 +193,7 @@ export function BloomPipeline({
 		// 	camera,
 		// );
 
-		const bloomPass = bloom(scenePassColor, 0.1, 1.0, 0.95);
+		const bloomPass = bloom(scenePassColor, 0.25, 1.0, 1.0);
 
 		const postProcessing = new RenderPipeline(renderer as any);
 		// .add(ssrPass)
