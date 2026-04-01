@@ -8,6 +8,7 @@ import { dirname, join } from "path";
 import { CorePaths } from "./workpath";
 import { mkdir } from "fs/promises";
 import { setupSocket } from "../socket/socket";
+import { exec } from "child_process";
 
 // import { spawn } from "node:child_process";
 // import { JSONFilePreset } from "lowdb/node";
@@ -30,8 +31,8 @@ export async function runServer({ host, port, mode }: any) {
 	const { getToolsRouter } = await import("../router/tools");
 
 	//
-	const tools = await getToolsRouter();
-	app.use("/api/tools", tools.router);
+	const { router } = await getToolsRouter();
+	app.use("/api/tools", router);
 
 	setupSocket({ io });
 
@@ -58,6 +59,9 @@ export async function runServer({ host, port, mode }: any) {
 		);
 	}
 
+	setTimeout(() => {
+		exec(`open http://localhost:${port}`);
+	});
 	server.listen(port, host, () => {});
 }
 
