@@ -24,6 +24,7 @@ import "nprogress/nprogress.css";
 
 import { LMStudioManager } from "./adapter/LMStudioManager";
 import { ClaudeCode } from "../components/2d/ClaudeCode/ClaudeCode";
+import { useAppState } from "../components/3d/World/useAppState";
 
 function App() {
 	return (
@@ -37,6 +38,28 @@ function App() {
 							</li>
 							<li>
 								<Link to="/ai-settings">AI Settings</Link>
+							</li>
+							<li>
+								<button
+									className="p-2 bg-gray-200"
+									onClick={() => {
+										useAppState.setState({
+											chosenPlayerAvatar: "boy",
+										});
+									}}
+								>
+									Boy
+								</button>
+								<button
+									className="p-2 bg-gray-200"
+									onClick={() => {
+										useAppState.setState({
+											chosenPlayerAvatar: "girl",
+										});
+									}}
+								>
+									Girl
+								</button>
 							</li>
 						</ul>
 					</nav>

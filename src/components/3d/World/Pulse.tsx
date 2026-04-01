@@ -15,7 +15,7 @@ import {
 	vec4,
 } from "three/tsl";
 
-export function Pulse({ setColorNode, setEmissiveNode }: any) {
+export function Pulse({ setEmissiveNode }: any) {
 	const scene = useThree((r) => r.scene);
 	const tasks: any[] = useMemo(() => {
 		return [];
@@ -39,7 +39,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 			});
 
 			const outer = uniform(0);
-			const thickness = uniform(0.1);
+			const thickness = uniform(1);
 			const brightness = uniform(1);
 
 			let loop = async () => {
@@ -60,8 +60,8 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				});
 
 				await gsap.to(outer, {
-					value: 3.0,
-					duration: 1.0,
+					value: 150.0,
+					duration: 5.0,
 					delay: delay,
 					ease: "power2.inOut",
 					onUpdate: () => {},
@@ -146,60 +146,21 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				getEmissiveNode({
 					duration: 3,
 				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
-				getEmissiveNode({
-					duration: 3,
-				}),
 			];
 
 			list.forEach((li) => {
 				emissiveNode.addAssign(vec3(li.emissiveNode));
 			});
 
-			setInterval(
-				() => {
-					let free = list.find((r) => r.free);
+			setInterval(() => {
+				let free = list.find((r) => r.free);
 
-					if (free) {
-						free?.run();
-					} else {
-						//
-					}
-				},
-				(1000 / list.length) * 5,
-			);
+				if (free) {
+					free?.run();
+				} else {
+					//
+				}
+			}, 150);
 
 			return emissiveNode;
 		})();
@@ -214,14 +175,6 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 			setEmissiveNode(color("#000000"));
 		};
 	}, [emissiveNode]);
-
-	// useEffect(() => {
-	// 	setColorNode(colorNode);
-
-	// 	return () => {
-	// 		setColorNode(color("#fbf8d3"));
-	// 	};
-	// }, [colorNode]);
 
 	return null;
 }

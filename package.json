@@ -1,89 +1,89 @@
 {
-  "name": "codetown",
-  "version": "0.0.63",
-  "description": "codetown is a place to code and have fun",
-  "license": "MIT",
-  "repository": "wonglok/codetown",
-  "author": {
-    "name": "lok wong",
-    "url": "https://wonglok.com"
-  },
-  "type": "module",
-  "bin": {
-    "codetown": "./cli.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "docker": "docker compose up --build",
-    "docker:publish": "docker compose build; docker tag codetown-pod:latest wonglok831/effectnode-pod:latest; docker push wonglok831/effectnode-pod:latest;",
-    "auth": "echo \"run this in terminal: npm run build; npm publish --access public --otp \"",
-    "authdeploy": "npm run build; npm publish --access public",
-    "start": "npx vite build; NODE_ENV=production node ./cli.js --host 0.0.0.0",
-    "build": "NODE_ENV=production npx vite build; npx bump; ",
-    "dev": "NODE_ENV=development npx nodemon ./cli.js --watch ./src/backend -e ts,js,tsx",
-    "test": "node ./cli.js"
-  },
-  "files": [
-    "dist",
-    "./src/backend",
-    "./cli.js"
-  ],
-  "keywords": [
-    "cli",
-    "codetown"
-  ],
-  "dependencies": {
-    "@ai-sdk/openai-compatible": "^2.0.30",
-    "@lmstudio/sdk": "^1.5.0",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/lodash": "^4.17.23",
-    "@types/nprogress": "^0.2.3",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/three": "^0.183.1",
-    "@vitejs/plugin-react": "^4.4.1",
-    "ai": "^6.0.94",
-    "axios": "^1.13.5",
-    "bvhecctrl": "^0.0.18",
-    "copy-to-clipboard": "^3.3.3",
-    "db-local": "^3.1.0",
-    "express": "^5.1.0",
-    "gsap": "^3.14.2",
-    "howler": "^2.2.4",
-    "lodash": "^4.17.23",
-    "lowdb": "^7.0.1",
-    "make-dir": "^5.1.0",
-    "md5": "^2.3.0",
-    "meow": "^13.2.0",
-    "mkdirp": "^3.0.1",
-    "navcat": "^0.1.6",
-    "nodemon": "^3.1.10",
-    "nprogress": "^0.2.0",
-    "open": "^11.0.0",
-    "openai": "^6.33.0",
-    "publish": "^0.6.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "5",
-    "socket.io": "^4.8.3",
-    "socket.io-client": "^4.8.3",
-    "tailwindcss": "^4.1.18",
-    "three": "^0.183.2",
-    "tslib": "^2.8.1",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.3",
-    "vite-express": "*",
-    "zod": "^4.3.6",
-    "zustand": "^5.0.11"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^25.3.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2"
-  }
+	"name": "codetown",
+	"version": "0.0.63",
+	"description": "codetown is a place to code and have fun",
+	"license": "MIT",
+	"repository": "wonglok/codetown",
+	"author": {
+		"name": "lok wong",
+		"url": "https://wonglok.com"
+	},
+	"type": "module",
+	"bin": {
+		"codetown": "./cli.js"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"docker": "docker compose up --build",
+		"docker:publish": "docker compose build; docker tag codetown-pod:latest wonglok831/effectnode-pod:latest; docker push wonglok831/effectnode-pod:latest;",
+		"auth": "echo \"run this in terminal: npm run build; npm publish --access public --otp 01234\"",
+		"authdeploy": "npm run build; npm publish --access public",
+		"start": "npx vite build; NODE_ENV=production node ./cli.js --host 0.0.0.0",
+		"build": "NODE_ENV=production npx vite build; npx bump; ",
+		"dev": "NODE_ENV=development npx nodemon ./cli.js --watch ./src/backend -e ts,js,tsx",
+		"test": "node ./cli.js"
+	},
+	"files": [
+		"dist",
+		"./src/backend",
+		"./cli.js"
+	],
+	"keywords": [
+		"cli",
+		"codetown"
+	],
+	"dependencies": {
+		"@ai-sdk/openai-compatible": "^2.0.30",
+		"@lmstudio/sdk": "^1.5.0",
+		"@react-three/drei": "^10.7.7",
+		"@react-three/fiber": "^9.5.0",
+		"@tailwindcss/vite": "^4.1.18",
+		"@types/lodash": "^4.17.23",
+		"@types/nprogress": "^0.2.3",
+		"@types/react-router-dom": "^5.3.3",
+		"@types/three": "^0.183.1",
+		"@vitejs/plugin-react": "^4.4.1",
+		"ai": "^6.0.94",
+		"axios": "^1.13.5",
+		"bvhecctrl": "^0.0.18",
+		"copy-to-clipboard": "^3.3.3",
+		"db-local": "^3.1.0",
+		"express": "^5.1.0",
+		"gsap": "^3.14.2",
+		"howler": "^2.2.4",
+		"lodash": "^4.17.23",
+		"lowdb": "^7.0.1",
+		"make-dir": "^5.1.0",
+		"md5": "^2.3.0",
+		"meow": "^13.2.0",
+		"mkdirp": "^3.0.1",
+		"navcat": "^0.1.6",
+		"nodemon": "^3.1.10",
+		"nprogress": "^0.2.0",
+		"open": "^11.0.0",
+		"openai": "^6.33.0",
+		"publish": "^0.6.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-router-dom": "5",
+		"socket.io": "^4.8.3",
+		"socket.io-client": "^4.8.3",
+		"tailwindcss": "^4.1.18",
+		"three": "^0.183.2",
+		"tslib": "^2.8.1",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.3",
+		"vite-express": "*",
+		"zod": "^4.3.6",
+		"zustand": "^5.0.11"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.1",
+		"@types/node": "^25.3.0",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2"
+	}
 }

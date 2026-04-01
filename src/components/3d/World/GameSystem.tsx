@@ -63,7 +63,8 @@ import {
 	vec3,
 	vec4,
 } from "three/tsl";
-import { Pulse } from "./Pulse";
+// import { Pulse } from "./Pulse";
+// import { Armor } from "./Armor/Armor";
 // import { Armor } from "./Armor/Armor";
 // import { findPathByObjects } from './simple-nav'
 // import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
@@ -171,7 +172,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 
 								{/*  */}
 
-								{chosenPlayerAvatar === "school-girl" && (
+								{/* {chosenPlayerAvatar === "school-girl" && (
 									<>
 										<group position={[0, 0.15, 0]}>
 											<Suspense fallback={null}>
@@ -192,7 +193,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 											</Suspense>
 										</group>
 									</>
-								)}
+								)} */}
 
 								{chosenPlayerAvatar === "girl" && (
 									<>
@@ -406,10 +407,9 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 
 	return (
 		<group dispose={null} position={[0, -2, 0]}>
-			<Pulse
-				setColorNode={setColorNode}
-				setEmissiveNode={setEmissiveNode}
-			></Pulse>
+			{/* <Pulse setEmissiveNode={setEmissiveNode}></Pulse> */}
+			{/*  */}
+
 			<mesh
 				castShadow
 				receiveShadow
