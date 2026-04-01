@@ -51,7 +51,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				brightness.value = 0;
 				outer.value = 0;
 				gsap.to(brightness, {
-					value: 20,
+					value: 15,
 					duration: duration,
 					ease: "power2.inOut",
 					onUpdate: () => {},
@@ -60,7 +60,7 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				});
 
 				await gsap.to(outer, {
-					value: 2.0,
+					value: 10.0,
 					duration: duration,
 					delay: delay,
 					ease: "power2.inOut",
@@ -137,34 +137,49 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 
 			const list = [
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
 				}),
 				getEmissiveNode({
-					duration: 1.5,
+					duration: 3,
+				}),
+				getEmissiveNode({
+					duration: 3,
+				}),
+				getEmissiveNode({
+					duration: 3,
+				}),
+				getEmissiveNode({
+					duration: 3,
+				}),
+				getEmissiveNode({
+					duration: 3,
+				}),
+				getEmissiveNode({
+					duration: 3,
 				}),
 			];
 
@@ -172,15 +187,18 @@ export function Pulse({ setColorNode, setEmissiveNode }: any) {
 				emissiveNode.addAssign(vec3(li.emissiveNode));
 			});
 
-			setInterval(() => {
-				let free = list.find((r) => r.free);
+			setInterval(
+				() => {
+					let free = list.find((r) => r.free);
 
-				if (free) {
-					free?.run();
-				} else {
-					//
-				}
-			}, 250);
+					if (free) {
+						free?.run();
+					} else {
+						//
+					}
+				},
+				(1000 / list.length) * 1,
+			);
 
 			return emissiveNode;
 		})();
