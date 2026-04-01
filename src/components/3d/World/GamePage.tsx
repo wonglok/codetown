@@ -41,10 +41,17 @@ export function GamePage() {
 							files={[`/hdr/default.hdr`]}
 						></Environment> */}
 
+						{/*  */}
+						{/*  */}
+
+						<BloomPipeline url={`/hdr/default.hdr`}></BloomPipeline>
+
 						<group visible={visible}>
-							<BloomPipeline
-								url={`/hdr/default.hdr`}
-							></BloomPipeline>
+							<Suspense fallback={null}>
+								<GameSystem
+									glbSRC={`/env/digital-palace-loklok.glb`}
+								></GameSystem>
+							</Suspense>
 
 							{/* <group position={[0, -2, 0]}>
 								<Suspense fallback={null}>
@@ -116,12 +123,6 @@ export function GamePage() {
 									></AnimatedLobster>
 								</Suspense>
 							</group> */}
-
-							<Suspense fallback={null}>
-								<GameSystem
-									glbSRC={`/env/digital-palace-loklok.glb`}
-								></GameSystem>
-							</Suspense>
 
 							{/* <Suspense fallback={null}>
 								<SkinedMeshEffect masterName="lobster-mascot"></SkinedMeshEffect>

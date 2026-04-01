@@ -4,7 +4,7 @@ import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 // //
 // const meshes: Mesh[] = []
-
+import gsap from "gsap";
 import {
 	CameraControls,
 	KeyboardControls,
@@ -19,6 +19,7 @@ import BVHEcctrl, {
 } from "bvhecctrl";
 import {
 	Suspense,
+	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
@@ -27,7 +28,7 @@ import {
 } from "react";
 // import { Group, Vector3 } from 'three'
 // import { useControls, folder, button } from 'leva'
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 // import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 // import Avatar from './Avatar'
 import { AvatarRPM } from "./AvatarRPM";
@@ -42,11 +43,24 @@ import {
 	Vector3,
 } from "three";
 import { AvatarAI } from "./AvatarAI";
-import { MeshPhysicalNodeMaterial } from "three/webgpu";
+import { MeshPhysicalNodeMaterial, Object3D } from "three/webgpu";
 import { AvatarLobsterAI } from "./AvatarLobsterAI";
 import copy from "copy-to-clipboard";
 import { ObjectWater } from "./ObjectWater";
 import { AvatarCuteHuman } from "./AvatarCuteHuman";
+import {
+	bool,
+	color,
+	Fn,
+	If,
+	mix,
+	positionWorld,
+	texture,
+	uniform,
+	uv,
+	vec3,
+	vec4,
+} from "three/tsl";
 // import { findPathByObjects } from './simple-nav'
 // import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
 // import { gsap } from 'gsap'
@@ -199,7 +213,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 									</>
 								)}
 
-								{chosenPlayerAvatar === "army" && (
+								{/* {chosenPlayerAvatar === "army" && (
 									<>
 										<group position={[0, 0, 0]}>
 											<AvatarAI></AvatarAI>
@@ -231,7 +245,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 											</Suspense>
 										</group>
 									</>
-								)}
+								)} */}
 
 								<group name="main-player"></group>
 							</BVHEcctrl>
@@ -275,6 +289,20 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 // { "tool": "exec", "command": "sleep 5 && echo done", "yieldMs": 1000 }
 
 function ContentGL({ glbSRC }: { glbSRC: string }) {
+	const scene = useThree((r) => r.scene);
+	const tasks: any[] = useMemo(() => {
+		return [];
+	}, []);
+	useFrame((_, dt) => {
+		tasks.forEach((ts) => ts(_, dt));
+	});
+	const onLoop = useCallback(
+		(fnc: any) => {
+			tasks.push(fnc);
+		},
+		[tasks],
+	);
+
 	const glb = useGLTF(glbSRC) as any;
 
 	const cloned = useMemo(() => {
@@ -311,35 +339,96 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 			});
 		},
 	);
+	const colorNode = useMemo(() => {
+		const mainPlayer = new Object3D();
+		const playerPos = uniform(mainPlayer.position);
+		onLoop(() => {
+			//
+			let player = scene.getObjectByName("main-player");
+			if (player) {
+				player.getWorldPosition(mainPlayer.position);
+			}
+		});
+
+		return Fn(() => {
+			//
+			let colorOut = color("#fbf8d3").toVar();
+
+			// const plaza = texture(materials.Inner_plaza.map, uv());
+			// colorOut.assign(plaza);
+
+			let dist = playerPos.xz.sub(positionWorld.xz).length();
+
+			const outer = uniform(2.5);
+			const thickness = uniform(0.5);
+
+			outer.value = 0;
+			gsap.to(outer, {
+				value: 200,
+				duration: 200 / 50,
+				delay: 0,
+				repeat: Infinity,
+				ease: "power2.inOut",
+				onUpdate: () => {
+					thickness.value = 2;
+				},
+			});
+
+			If(bool(false), () => {})
+				.ElseIf(
+					dist
+						.lessThanEqual(outer)
+						.and(dist.greaterThanEqual(outer.sub(thickness))),
+					() => {
+						colorOut.assign(color("#26ff00"));
+					},
+				)
+				.Else(() => {
+					//
+					// colorOut.assign(color(materials.Inner_plaza.color));
+					//
+				});
+
+			return colorOut;
+		})();
+	}, []);
 
 	const mat = useMemo(() => {
-		const val = new MeshPhysicalNodeMaterial({
+		const val = new MeshPhysicalNodeMaterial();
+
+		val.setValues({
 			map: materials.Inner_plaza.map,
 			metalness: 0.7,
 			roughness: 0.25,
 			metalnessMap: textProps.normalMap,
 			normalMap: textProps.normalMap,
 			normalScale: new Vector2(3.5, 3.5),
+			colorNode: colorNode,
 		});
 
 		return val;
-	}, [textProps]);
+	}, [textProps, scene]);
 
 	const wall = useMemo(() => {
-		const val = new MeshPhysicalNodeMaterial({
+		const val = new MeshPhysicalNodeMaterial({});
+
+		val.setValues({
 			map: materials.Outer_ring.map,
 			metalness: 0.7,
 			roughness: 0.25,
 			metalnessMap: textProps.normalMap,
 			normalMap: textProps.normalMap,
 			normalScale: new Vector2(1, 1),
+			colorNode: colorNode,
 		});
 
 		return val;
 	}, [textProps]);
 
 	const middle = useMemo(() => {
-		const val = new MeshPhysicalNodeMaterial({
+		const val = new MeshPhysicalNodeMaterial();
+
+		val.setValues({
 			color: new Color("#ffcd7d"),
 			metalness: 0.7,
 			roughness: 0.25,
@@ -360,6 +449,7 @@ function ContentGL({ glbSRC }: { glbSRC: string }) {
 			emissiveIntensity: 5.0,
 			metalness: 0,
 		});
+
 		return val;
 	}, [textProps]);
 
