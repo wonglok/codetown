@@ -55,17 +55,17 @@ export function NPC({
 				scale={0.65}
 				onClick={onClick}
 			>
-				<mesh scale={[1, 1, 0.15]}>
+				<mesh scale={[1, 1, 0.05]}>
 					<RoundedBoxGeometry
 						args={[
 							1 * (1 + 1.5 + banner.length / 3.5),
 							1 * (1 + 0.5),
 							1,
 						]}
-						radius={0.25}
+						radius={0.5}
 					></RoundedBoxGeometry>
 					<meshStandardMaterial
-						roughness={0.1}
+						roughness={0.2}
 						metalness={0.5}
 					></meshStandardMaterial>
 				</mesh>
@@ -75,7 +75,14 @@ export function NPC({
 					scale={0.5}
 					position={[0, 0, 0.1]}
 				>
-					<Text3D font={helvetica as any}>
+					<Text3D
+						font={helvetica as any}
+						bevelEnabled
+						bevelSize={0.02}
+						bevelSegments={3}
+						bevelThickness={0.1}
+						height={0.01}
+					>
 						{`${banner}`}
 						<meshStandardMaterial
 							roughness={0.1}
