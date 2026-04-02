@@ -8,6 +8,6 @@ export const useAppState = create(() => {
 		//
 		navMesh: null as NavMesh | null,
 		chosenPlayerAvatar: "boy",
-		overlay: "avatarpicker",
+		overlay: "",
 	};
 });

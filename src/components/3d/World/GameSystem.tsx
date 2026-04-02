@@ -298,13 +298,18 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 
 				<group
 					name="near-left"
-					position={[
-						-2.1848642955685285, -1.9999580383300781,
-						-4.664016388831336,
-					]}
+					position={[-3, -1.9999580383300781, -4.664016388831336]}
 				>
 					<Suspense fallback={null}>
 						<NPC
+							onClick={() => {
+								//
+								useAppState.setState({
+									overlay: "create-program",
+								});
+								console.log("Create Program");
+							}}
+							banner={`Create Program`}
 							avatarURL={`/avatar/human/school-boy-transformed.glb`}
 							idleURL={`/avatar/human/human-motion/idle.fbx`}
 						></NPC>
@@ -313,13 +318,18 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 
 				<group
 					name="near-right"
-					position={[
-						1.7432644114509654, -1.9999580383300781,
-						-5.06916632184862,
-					]}
+					position={[3, -1.9999580383300781, -4.66916632184862]}
 				>
 					<Suspense fallback={null}>
 						<NPC
+							onClick={() => {
+								console.log("Chat with Agent");
+								useAppState.setState({
+									overlay: "chat-agent",
+								});
+								//
+							}}
+							banner={`Chat with Agent`}
 							avatarURL={`/avatar/human/school-girl-transformed.glb`}
 							idleURL={`/avatar/human/human-motion/idle.fbx`}
 						></NPC>

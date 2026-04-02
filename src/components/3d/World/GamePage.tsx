@@ -15,6 +15,7 @@ import { useAppState } from "./useAppState";
 // import { SkinedMeshEffect } from "../SkinnedMesh/SkinedMeshEffect";
 // import { DiamindComponent } from "../DiamondTSL/DiamondComponent";
 import { BloomPipeline } from "../CanvasGPU/BloomPipeline";
+import { Overlay } from "./Overlay";
 // import { useFrame } from "@react-three/fiber";
 // import { Group } from "three";
 // import { SkinedMeshEffect } from '../../SkinnedMesh/SkinedMeshEffect'
@@ -143,6 +144,8 @@ export function GamePage() {
 			</CanvasGPU>
 
 			<JoystickControls></JoystickControls>
+
+			<Overlay></Overlay>
 		</div>
 	);
 }
