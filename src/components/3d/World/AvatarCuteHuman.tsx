@@ -146,10 +146,10 @@ export function AvatarCuteHuman({
 		}
 
 		if (ecctrlActionName === "RUN" && nextAction) {
-			nextAction.timeScale = 0.45;
+			nextAction.timeScale = 0.4;
 		}
 		if (ecctrlActionName === "WALK" && nextAction) {
-			nextAction.timeScale = 0.45;
+			nextAction.timeScale = 0.4;
 		}
 		if (ecctrlActionName === "JUMP_START" && nextAction) {
 			nextAction.timeScale = 0.5 * 2;
@@ -196,6 +196,13 @@ export function AvatarCuteHuman({
 		});
 	}, [glb]);
 
+	let y = 0;
+	if (ecctrlActionName === "WALK") {
+		y = -0.15;
+	}
+	if (ecctrlActionName === "RUN") {
+		y = -0.15;
+	}
 	return (
 		<>
 			<group
@@ -203,7 +210,7 @@ export function AvatarCuteHuman({
 				name="main-player-glb"
 				rotation={[0 * Math.PI, 0, 0]}
 				scale={1.5}
-				position={[0, -0.9, 0]}
+				position={[0, -0.9 + y, 0]}
 			>
 				<primitive object={glb.scene}></primitive>
 			</group>
