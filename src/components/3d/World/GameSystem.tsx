@@ -64,6 +64,8 @@ import {
 	vec4,
 } from "three/tsl";
 import { NPC } from "./NPC";
+// import { Armor } from "./Armor/Armor";
+// import { Armor2 } from "./Armor2/Armor2";
 // import { Pulse } from "./Pulse";
 // import { Armor } from "./Armor/Armor";
 // import { Armor } from "./Armor/Armor";
@@ -223,7 +225,7 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 
 								{/* <group position={[0, 0.0, 0]}>
 									<Suspense fallback={null}>
-										<Armor></Armor>
+										<Armor2></Armor2>
 									</Suspense>
 								</group> */}
 
