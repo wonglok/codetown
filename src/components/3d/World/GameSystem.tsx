@@ -64,15 +64,6 @@ import {
 	vec4,
 } from "three/tsl";
 import { NPC } from "./NPC";
-import { Armor2 } from "./Armor2/Armor2";
-// import { Armor } from "./Armor/Armor";
-// import { Armor2 } from "./Armor2/Armor2";
-// import { Pulse } from "./Pulse";
-// import { Armor } from "./Armor/Armor";
-// import { Armor } from "./Armor/Armor";
-// import { findPathByObjects } from './simple-nav'
-// import { CatmullRomCurve3, Object3D, Vector3 } from 'three'
-// import { gsap } from 'gsap'
 
 export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 	const colliderSource = useAppState((r) => r.colliderSource);
@@ -215,20 +206,20 @@ export function GameSystem({ glbSRC }: { glbSRC?: string }) {
 								{chosenPlayerAvatar === "boy" && (
 									<>
 										<group position={[0, 0.15, 0]}>
-											{/* <Suspense fallback={null}>
+											<Suspense fallback={null}>
 												<AvatarCuteHuman
 													model={`/avatar/human/boy-transformed.glb`}
 												></AvatarCuteHuman>
-											</Suspense> */}
+											</Suspense>
 										</group>
 									</>
 								)}
 
-								<group position={[0, 0.0, 0]}>
+								{/* <group position={[0, 0.0, 0]}>
 									<Suspense fallback={null}>
 										<Armor2></Armor2>
 									</Suspense>
-								</group>
+								</group> */}
 
 								{/* {chosenPlayerAvatar === "army" && (
 									<>
