@@ -3,15 +3,12 @@ import { getGenericSocket } from "../../client/clients/socket";
 import type { Socket } from "socket.io-client";
 
 export function useSocket() {
-	const [status, setStatus] = useState("connecting");
 	const [socket, setSocket] = useState<boolean | Socket>(false);
 	useEffect(() => {
 		const socket = getGenericSocket({ namespace: `/claude` });
 
-		setSocket(socket);
-
 		socket.on("ready", () => {
-			setStatus("ready");
+			setSocket(socket);
 		});
 
 		socket.on("greet", (args) => {
@@ -24,7 +21,6 @@ export function useSocket() {
 	}, []);
 
 	return {
-		status,
 		socket,
 	};
 }

@@ -40,7 +40,7 @@ export function Overlay() {
 				<>
 					{/*  */}
 					<div
-						className=" absolute  bg-white  z-30 rounded-2xl"
+						className=" absolute  bg-white  z-30 rounded-2xl overflow-hidden"
 						style={{
 							width: `90%`,
 							height: `90%`,
@@ -48,7 +48,7 @@ export function Overlay() {
 							top: `5%`,
 						}}
 					>
-						<div className=""></div>
+						<div className="w-full h-full bg-gray-200">123</div>
 					</div>
 					{/*  */}
 				</>
