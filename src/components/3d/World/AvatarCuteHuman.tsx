@@ -149,7 +149,7 @@ export function AvatarCuteHuman({
 			nextAction.timeScale = 0.4;
 		}
 		if (ecctrlActionName === "WALK" && nextAction) {
-			nextAction.timeScale = 0.4;
+			nextAction.timeScale = 0.4 * 1.2 * 1.5;
 		}
 		if (ecctrlActionName === "JUMP_START" && nextAction) {
 			nextAction.timeScale = 0.5 * 2;
